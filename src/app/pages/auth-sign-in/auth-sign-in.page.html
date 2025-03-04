@@ -1,0 +1,114 @@
+<ion-content [scrollY]="false">
+  <img
+    class="tw-fixed -tw-top-0 tw-h-screen tw-w-fill-available tw-object-cover"
+    src="assets/images/app-background-image.png"
+    alt=""
+  />
+
+  <div
+    class="fvs-125 tw-relative tw-mx-6 tw-flex tw-h-1/3 tw-items-center tw-font-anek-gurmukhi tw-text-5xl tw-font-semibold tw-text-white"
+  >
+    Welcome Doctor
+  </div>
+
+  <form
+    class="tw-fixed tw-bottom-0 tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
+    [formGroup]="signInForm"
+    (ngSubmit)="submit()"
+  >
+    <div class="tw-min-h-[60vh] tw-px-4 tw-py-2">
+      <h2
+        class="fvs-125 tw-mx-0 tw-mb-0 tw-mt-4 tw-w-full tw-pt-4 tw-text-start tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Sign In
+      </h2>
+
+      <div class="tw-py-4"></div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="email"
+          name="email"
+          formControlName="email"
+          type="email"
+          fill="solid"
+          placeholder="Email"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-ml-2 tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="signInForm.controls.email"
+          [customErrorMessages]="{
+            required: 'email is required.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="password"
+          name="password"
+          formControlName="password"
+          fill="solid"
+          placeholder="Password"
+          [type]="passwordVisible ? 'text' : 'password'"
+        >
+          <ion-button
+            type="button"
+            aria-label="Show/hide"
+            shape="round"
+            fill="clear"
+            slot="end"
+            (click)="passwordVisible = !passwordVisible"
+          >
+            <ion-icon
+              class="tw-text-xl tw-text-app-black"
+              aria-hidden="true"
+              slot="icon-only"
+              [name]="passwordVisible ? 'eye-outline' : 'eye-off-outline'"
+            />
+          </ion-button>
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-ml-2 tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="signInForm.controls.password"
+          [customErrorMessages]="{
+            required: 'password is required.',
+            minlength:
+              'password must be at least <REQUIRED_LENGTH> characters.',
+          }"
+        />
+      </div>
+
+      <div class="tw-my-4 tw-w-full tw-text-start">
+        <a
+          class="tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-primary"
+          role="link"
+        >
+          Forgot Password ?
+        </a>
+      </div>
+
+      <ion-button
+        class="tw-w-full tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-capitalize tw-text-app-secondary tw-ion-bg-app-primary tw-ion-text-white tw-ion-rounded-2xl tw-ion-shadow-none tw-ion-pb-4 tw-ion-pt-5"
+        type="submit"
+        expand="block"
+      >
+        Sign In
+      </ion-button>
+
+      <p
+        class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+      >
+        Don't have an account ?
+        <a class="tw-font-medium tw-text-app-primary" role="link">
+          New Account
+        </a>
+      </p>
+
+      <div class="tw-py-4"></div>
+    </div>
+  </form>
+</ion-content>

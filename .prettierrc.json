@@ -1,0 +1,31 @@
+{
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "plugins": [
+    "prettier-plugin-organize-attributes",
+    "prettier-plugin-css-order",
+    "prettier-plugin-tailwindcss"
+  ],
+  "attributeGroups": [
+    "^class$",
+    "^style$",
+    "$ANGULAR_ELEMENT_REF",
+    "^(id)$",
+    "^(name)$",
+    "^(formControlName)$",
+    "$CODE_GUIDE",
+    "$DEFAULT",
+    "$ANGULAR"
+  ],
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
+}

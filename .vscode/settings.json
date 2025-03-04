@@ -1,0 +1,30 @@
+{
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "@ionic/angular/common",
+    "@ionic/angular/standalone"
+  ],
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "javascript": "javascript",
+    "css": "css",
+    "scss": "scss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "cSpell.words": [
+    "anek",
+    "chatbox",
+    "checkmark",
+    "Datetime",
+    "devkit",
+    "haptics",
+    "ionicons",
+    "maxlength",
+    "styleext",
+    "tailwindcss",
+    "titlecase",
+    "urapptech"
+  ],
+  "css.customData": [".vscode/tailwind.json"]
+}
