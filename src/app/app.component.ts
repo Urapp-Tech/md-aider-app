@@ -69,7 +69,6 @@ import {
   triangle,
 } from 'ionicons/icons';
 import { register } from 'swiper/element/bundle';
-import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.component';
 
 register();
 
@@ -78,7 +77,7 @@ register();
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
   standalone: true,
-  imports: [IonApp, IonRouterOutlet, SidebarMenuComponent],
+  imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
   constructor() {
