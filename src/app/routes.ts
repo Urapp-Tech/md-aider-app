@@ -47,4 +47,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home.page').then((c) => c.HomePage),
   },
+  {
+    path: 'scan-disease',
+    loadComponent: () =>
+      import('./pages/scan-disease/scan-disease.page').then(
+        (c) => c.ScanDiseasePage
+      ),
+  },
 ];

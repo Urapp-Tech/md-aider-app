@@ -7,9 +7,9 @@ import { IonicSharedModule } from 'src/modules/ionic-shared.module';
 import { SharedModule } from 'src/modules/shared.module';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-scan-disease',
+  templateUrl: 'scan-disease.page.html',
+  styleUrls: ['scan-disease.page.scss'],
   standalone: true,
   imports: [
     IonicSharedModule,
@@ -19,7 +19,7 @@ import { SharedModule } from 'src/modules/shared.module';
     TabsComponent,
   ],
 })
-export class HomePage {
+export class ScanDiseasePage {
   constructor() {}
 
   barChartData: ChartData<'bar'> = {
