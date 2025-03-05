@@ -1,12 +1,66 @@
-<ion-content class="tw-ion-bg-app-secondary">
-  <app-header />
+<app-header />
 
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
   <div class="tw-px-6">
     <h1
-      class="fvs-125 tw-font-anek-gurmukhi tw-text-4xl tw-font-semibold tw-text-app-black"
+      class="fvs-125 tw-mx-0 tw-mb-2 tw-pt-0 tw-font-anek-gurmukhi tw-text-4xl tw-font-semibold tw-text-app-black"
     >
       Morning <br />
       Dr. Wilkinson
     </h1>
+
+    <ion-input
+      class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-pt-1"
+      fill="outline"
+      placeholder="search patient"
+    >
+      <ion-icon class="-tw-mt-1" name="search" slot="end"></ion-icon>
+    </ion-input>
+
+    <div class="tw-mb-3 tw-mt-6 tw-flex tw-gap-x-3">
+      <div
+        class="tw-flex tw-aspect-square tw-basis-1/2 tw-flex-col tw-justify-between tw-rounded-2xl tw-bg-app-primary tw-px-3 tw-pt-6 tw-text-app-secondary"
+      >
+        <p class="tw-m-0 tw-font-anek-gurmukhi tw-text-base tw-font-medium">
+          Your Patients
+        </p>
+
+        <h1 class="tw-m-0 tw-font-anek-gurmukhi tw-text-6xl tw-font-semibold">
+          205
+        </h1>
+      </div>
+      <div
+        class="tw-flex tw-aspect-square tw-basis-1/2 tw-flex-col tw-items-center tw-justify-center tw-rounded-2xl tw-bg-app-primary tw-text-app-secondary"
+      >
+        <ion-icon
+          class="tw-mb-3 tw-text-4xl"
+          src="assets/icons/icon-face-scan.svg"
+        />
+        <p class="tw-m-0 tw-font-anek-gurmukhi tw-text-base tw-font-medium">
+          Scan Disease
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="tw-flex tw-aspect-[3/2] tw-w-fill-available tw-flex-col tw-justify-between tw-rounded-2xl tw-bg-white tw-py-3"
+    >
+      <p
+        class="tw-m-0 tw-px-3 tw-font-anek-gurmukhi tw-text-base tw-font-medium tw-text-app-black"
+      >
+        this week's Appointments
+      </p>
+
+      <canvas
+        baseChart
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [type]="'bar'"
+      ></canvas>
+    </div>
   </div>
+
+  <div class="tw-py-14"></div>
+
+  <app-tabs />
 </ion-content>

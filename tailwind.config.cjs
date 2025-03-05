@@ -39,6 +39,7 @@ module.exports = {
         'app-primary': 'rgb(var(--color-app-primary), <alpha-value>)',
         'app-secondary': 'rgb(var(--color-app-secondary), <alpha-value>)',
         'app-black': 'rgb(var(--color-app-black), <alpha-value>)',
+        'app-gray': 'rgb(var(--color-app-gray), <alpha-value>)',
       },
     },
   },

@@ -1,71 +1,70 @@
 <nav
-  class="tw-fixed tw-bottom-4 tw-w-full tw-bg-transparent"
+  class="tw-fixed tw-bottom-0 tw-w-fill-available tw-bg-transparent"
   id="navigation-tabs"
 >
   <div
-    class="tw-mx-2 tw-flex tw-w-fill-available tw-items-center tw-justify-between tw-rounded-2xl tw-bg-black tw-p-2 tw-backdrop-blur-lg"
+    class="tw-absolute -tw-top-10 tw-h-12 tw-w-full"
+    style="
+      background: linear-gradient(
+        360deg,
+        rgba(103, 118, 255, 0.3) 0%,
+        rgba(103, 118, 255, 0) 100%
+      );
+    "
+  ></div>
+
+  <div
+    class="tw-relative tw-flex tw-w-full tw-items-center tw-justify-between tw-rounded-t-2xl tw-bg-app-secondary tw-p-1"
   >
     <ion-button
-      class="tw-flex tw-items-center tw-justify-center tw-text-white tw-ion-shadow-none tw-ion-p-4"
+      class="tw-flex tw-items-center tw-justify-center tw-ion-bg-transparent tw-ion-shadow-none tw-ion-p-4"
       shape="round"
-      routerLink="/dashboard"
+      routerLink="/home"
       routerDirection="root"
-      [cn]="['tw-ion-bg-transparent', true && 'tw-ion-bg-primary-background']"
+      [cn]="[
+        'tw-text-app-gray',
+        routeIsActive('/home') && 'tw-text-app-primary tw-scale-110',
+      ]"
     >
       <ion-icon
-        class="tw-text-2xl"
-        src="../../../assets/icons/icon-signal-box.svg"
+        class="tw-text-4xl"
+        src="assets/icons/icon-home.svg"
         slot="icon-only"
       />
     </ion-button>
 
     <ion-button
-      class="tw-flex tw-items-center tw-justify-center tw-text-white tw-ion-shadow-none tw-ion-p-4"
+      class="tw-flex tw-items-center tw-justify-center tw-ion-bg-transparent tw-ion-shadow-none tw-ion-p-4"
       shape="round"
-      [cn]="['tw-ion-bg-transparent', false && 'tw-ion-bg-primary-background']"
+      [cn]="['tw-text-app-gray', false && 'tw-text-app-primary tw-scale-110']"
     >
       <ion-icon
-        class="tw-text-2xl"
-        src="../../../assets/icons/icon-news.svg"
+        class="tw-text-4xl"
+        src="assets/icons/icon-face-scan.svg"
         slot="icon-only"
       />
     </ion-button>
 
     <ion-button
-      class="tw-flex tw-items-center tw-justify-center tw-text-white tw-ion-shadow-none tw-ion-p-4"
+      class="tw-flex tw-items-center tw-justify-center tw-ion-bg-transparent tw-ion-shadow-none tw-ion-p-4"
       shape="round"
-      routerLink="/gallery"
-      routerDirection="root"
-      [cn]="['tw-ion-bg-transparent', false && 'tw-ion-bg-primary-background']"
-      [queryParams]="{ tab: 'RENDERS' }"
+      [cn]="['tw-text-app-gray', false && 'tw-text-app-primary tw-scale-110']"
     >
       <ion-icon
-        class="tw-text-2xl"
-        src="../../../assets/icons/icon-home.svg"
+        class="tw-text-4xl"
+        src="assets/icons/icon-empty-clipboard.svg"
         slot="icon-only"
       />
     </ion-button>
 
     <ion-button
-      class="tw-flex tw-items-center tw-justify-center tw-text-white tw-ion-shadow-none tw-ion-p-4"
+      class="tw-flex tw-items-center tw-justify-center tw-ion-bg-transparent tw-ion-shadow-none tw-ion-p-4"
       shape="round"
-      [cn]="['tw-ion-bg-transparent', false && 'tw-ion-bg-primary-background']"
+      [cn]="['tw-text-app-gray', false && 'tw-text-app-primary tw-scale-110']"
     >
       <ion-icon
-        class="tw-text-2xl"
-        src="../../../assets/icons/icon-controller.svg"
-        slot="icon-only"
-      />
-    </ion-button>
-
-    <ion-button
-      class="tw-flex tw-items-center tw-justify-center tw-text-white tw-ion-shadow-none tw-ion-p-4"
-      shape="round"
-      [cn]="['tw-ion-bg-transparent', false && 'tw-ion-bg-primary-background']"
-    >
-      <ion-icon
-        class="tw-text-2xl"
-        src="../../../assets/icons/icon-menu.svg"
+        class="tw-text-4xl"
+        src="assets/icons/icon-toilet-man-woman.svg"
         slot="icon-only"
       />
     </ion-button>

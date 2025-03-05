@@ -11,6 +11,9 @@ importers:
       '@angular/animations':
         specifier: ^18.2.13
         version: 18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))
+      '@angular/cdk':
+        specifier: '18'
+        version: 18.2.14(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
       '@angular/common':
         specifier: ^18.2.13
         version: 18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
@@ -53,6 +56,9 @@ importers:
       '@ionic/angular':
         specifier: ^8.4.3
         version: 8.4.3(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(@angular/forms@18.2.13(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(@angular/platform-browser@18.2.13(@angular/animations@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(rxjs@7.8.2))(@angular/router@18.2.13(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(@angular/platform-browser@18.2.13(@angular/animations@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(rxjs@7.8.2))(rxjs@7.8.2)(zone.js@0.14.10)
+      chart.js:
+        specifier: ^4.4.8
+        version: 4.4.8
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -62,6 +68,9 @@ importers:
       ng-otp-input:
         specifier: ^2.0.7
         version: 2.0.7(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))
+      ng2-charts:
+        specifier: '7'
+        version: 7.0.0(@angular/cdk@18.2.14(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(@angular/platform-browser@18.2.13(@angular/animations@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(chart.js@4.4.8)(rxjs@7.8.2)
       rxjs:
         specifier: ~7.8.2
         version: 7.8.2
@@ -324,6 +333,13 @@ packages:
         optional: true
       tailwindcss:
         optional: true
+
+  '@angular/cdk@18.2.14':
+    resolution: {integrity: sha512-vDyOh1lwjfVk9OqoroZAP8pf3xxKUvyl+TVR8nJxL4c5fOfUFkD7l94HaanqKSRwJcI2xiztuu92IVoHn8T33Q==}
+    peerDependencies:
+      '@angular/common': ^18.0.0 || ^19.0.0
+      '@angular/core': ^18.0.0 || ^19.0.0
+      rxjs: ^6.5.3 || ^7.4.0
 
   '@angular/cli@18.2.14':
     resolution: {integrity: sha512-kWgRRQtJPkr8iwN7DMbTi3sXOnv7H5QhbU/GgD3nNX3D8YCSPmnby4PAE/P3wn7FsIK9JsSchsCt7MZ37Urh9A==}
@@ -1504,6 +1520,9 @@ packages:
     peerDependencies:
       tslib: '2'
 
+  '@kurkle/color@0.3.4':
+    resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
+
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
 
@@ -2292,6 +2311,10 @@ packages:
 
   chardet@0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
+
+  chart.js@4.4.8:
+    resolution: {integrity: sha512-IkGZlVpXP+83QpMm4uxEiGqSI7jFizwVtF3+n5Pc3k7sMO+tkd0qxh2OzLhenM0K80xtmAONWGBn082EiBQSDA==}
+    engines: {pnpm: '>=8'}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -3643,6 +3666,9 @@ packages:
     resolution: {integrity: sha512-gvVijfZvn7R+2qyPX8mAuKcFGDf6Nc61GdvGafQsHL0sBIxfKzA+usWn4GFC/bk+QdwPUD4kWFJLhElipq+0VA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
+  lodash-es@4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
@@ -3867,6 +3893,16 @@ packages:
     peerDependencies:
       '@angular/common': '>=16.0.0'
       '@angular/core': '>=16.0.0'
+
+  ng2-charts@7.0.0:
+    resolution: {integrity: sha512-HofyPPkz7yOX6Dr9JfV/SDddzmmqCFYCKbn71jeDiyWPRjrj99yTBCyqYtjzzNrnlTfWwbdvynYZ4GAhu/lbgQ==}
+    peerDependencies:
+      '@angular/cdk': '>=18.0.0'
+      '@angular/common': '>=18.0.0'
+      '@angular/core': '>=18.0.0'
+      '@angular/platform-browser': '>=18.0.0'
+      chart.js: ^3.4.0 || ^4.0.0
+      rxjs: ^6.5.3 || ^7.4.0
 
   nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}
@@ -5585,6 +5621,15 @@ snapshots:
       - supports-color
       - terser
 
+  '@angular/cdk@18.2.14(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)':
+    dependencies:
+      '@angular/common': 18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core': 18.2.13(rxjs@7.8.2)(zone.js@0.14.10)
+      rxjs: 7.8.2
+      tslib: 2.8.1
+    optionalDependencies:
+      parse5: 7.2.1
+
   '@angular/cli@18.2.14(chokidar@3.6.0)':
     dependencies:
       '@angular-devkit/architect': 0.1802.14(chokidar@3.6.0)
@@ -6940,6 +6985,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@kurkle/color@0.3.4': {}
+
   '@leichtgewicht/ip-codec@2.0.5': {}
 
   '@listr2/prompt-adapter-inquirer@2.0.15(@inquirer/prompts@5.3.8)':
@@ -7792,6 +7839,10 @@ snapshots:
   chalk@5.4.1: {}
 
   chardet@0.7.0: {}
+
+  chart.js@4.4.8:
+    dependencies:
+      '@kurkle/color': 0.3.4
 
   chokidar@3.6.0:
     dependencies:
@@ -9309,6 +9360,8 @@ snapshots:
     dependencies:
       p-locate: 6.0.0
 
+  lodash-es@4.17.21: {}
+
   lodash.debounce@4.0.8: {}
 
   lodash.merge@4.6.2: {}
@@ -9535,6 +9588,17 @@ snapshots:
     dependencies:
       '@angular/common': 18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
       '@angular/core': 18.2.13(rxjs@7.8.2)(zone.js@0.14.10)
+      tslib: 2.8.1
+
+  ng2-charts@7.0.0(@angular/cdk@18.2.14(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(@angular/platform-browser@18.2.13(@angular/animations@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(chart.js@4.4.8)(rxjs@7.8.2):
+    dependencies:
+      '@angular/cdk': 18.2.14(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/common': 18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2)
+      '@angular/core': 18.2.13(rxjs@7.8.2)(zone.js@0.14.10)
+      '@angular/platform-browser': 18.2.13(@angular/animations@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10)))(@angular/common@18.2.13(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))(rxjs@7.8.2))(@angular/core@18.2.13(rxjs@7.8.2)(zone.js@0.14.10))
+      chart.js: 4.4.8
+      lodash-es: 4.17.21
+      rxjs: 7.8.2
       tslib: 2.8.1
 
   nice-napi@1.0.2:
