@@ -54,4 +54,11 @@ export const routes: Routes = [
         (c) => c.ScanDiseasePage
       ),
   },
+  {
+    path: 'patients-log',
+    loadComponent: () =>
+      import('./pages/patients-log/patients-log.page').then(
+        (c) => c.PatientsLogPage
+      ),
+  },
 ];

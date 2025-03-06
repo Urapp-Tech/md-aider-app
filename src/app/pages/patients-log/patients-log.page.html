@@ -1,0 +1,58 @@
+<app-header />
+
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <div class="tw-px-6">
+    <h1
+      class="fvs-125 tw-mx-0 tw-mb-6 tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Patients Log
+    </h1>
+
+    <div class="tw-flex tw-flex-col tw-gap-y-6">
+      @for (log of logs; track log.id) {
+        <div
+          class="tw-flex tw-items-end tw-justify-between tw-border-0 tw-border-b tw-border-solid tw-border-app-black/25"
+        >
+          <div
+            class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+          >
+            {{ log.id }}
+          </div>
+          <div
+            class="tw-w-[8ch] tw-font-anek-gurmukhi tw-text-sm tw-font-semibold tw-text-app-black"
+          >
+            {{ log.firstName }} {{ log.lastName }}
+          </div>
+          <div
+            class="tw-w-[6ch] tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+          >
+            {{ log.age }}
+            <br />
+            {{ log.gender }}
+          </div>
+          <div
+            class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
+          >
+            <ion-icon class="tw-text-xs" src="assets/icons/icon-phone.svg" />
+            <span class="tw-underline"> {{ log.phoneNumber }} </span>
+          </div>
+          <div
+            class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+          >
+            {{ log.date }}
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <ion-button
+    class="tw-fixed tw-bottom-[calc(1vw+1vh+6rem)] tw-right-[calc(1vw+1vh)] tw-ion-bg-app-primary tw-ion-rounded-2xl"
+  >
+    <ion-icon class="tw-text-6xl" name="add" slot="icon-only" />
+  </ion-button>
+
+  <div class="tw-py-14"></div>
+
+  <app-tabs />
+</ion-content>
