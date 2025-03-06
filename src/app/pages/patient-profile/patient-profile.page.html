@@ -1,0 +1,116 @@
+<app-header />
+
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <div class="tw-px-6">
+    <h1
+      class="fvs-125 tw-mx-0 tw-mb-6 tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Patient Profile
+    </h1>
+
+    <p
+      class="tw-m-0 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+    >
+      MR#
+    </p>
+
+    <div class="tw-mb-4 tw-flex tw-items-end tw-justify-between">
+      <h3
+        class="tw-m-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
+      >
+        617
+      </h3>
+
+      <div
+        class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
+      >
+        <ion-icon class="tw-text-xs" src="assets/icons/icon-phone.svg" />
+        <span class="tw-underline"> 03211234567 </span>
+      </div>
+    </div>
+
+    <div class="tw-mb-4 tw-flex tw-items-end tw-justify-between">
+      <h2
+        class="tw-m-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Shehroz Asif
+      </h2>
+
+      <h3
+        class="tw-m-0 tw-font-anek-gurmukhi tw-text-xl tw-font-normal tw-text-app-black"
+      >
+        Male
+      </h3>
+    </div>
+
+    <p
+      class="tw-m-0 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+    >
+      Age
+    </p>
+    <div class="tw-mb-4 tw-flex tw-items-end tw-justify-between">
+      <h3
+        class="tw-m-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
+      >
+        19
+      </h3>
+
+      <div
+        class="tw-font-anek-gurmukhi tw-text-xl tw-font-normal tw-text-app-black"
+      >
+        633 Rosalind Forge
+      </div>
+    </div>
+
+    <div class="tw-mb-2 tw-flex tw-items-end tw-justify-between">
+      <h2
+        class="fvs-125 tw-m-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
+      >
+        Patient Visits
+      </h2>
+
+      <div
+        class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
+      >
+        + Create new revisit
+      </div>
+    </div>
+
+    <div class="tw-min-h-40 tw-rounded-2xl tw-bg-white tw-px-2 tw-py-4">
+      <table class="table-fixed tw-w-full">
+        <thead>
+          <tr
+            class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+          >
+            <th class="tw-text-start">Visit</th>
+            <th class="tw-text-start">Pres. Complaint</th>
+            <th class="tw-text-start">Medical Note</th>
+            <th class="tw-text-start"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="tw-text-center tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+          >
+            <td class="tw-text-start">Nov 27 2023</td>
+            <td>...</td>
+            <td>...</td>
+            <td class="tw-text-center">
+              <ion-button class="tw-text-app-black" fill="clear" shape="round">
+                <ion-icon
+                  class="tw-text-base"
+                  name="eye-outline"
+                  slot="icon-only"
+                />
+              </ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tw-py-14"></div>
+
+  <app-tabs />
+</ion-content>
