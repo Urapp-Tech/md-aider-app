@@ -68,4 +68,11 @@ export const routes: Routes = [
         (c) => c.PatientProfilePage
       ),
   },
+  {
+    path: 'patient-add',
+    loadComponent: () =>
+      import('./pages/patient-add/patient-add.page').then(
+        (c) => c.PatientAddPage
+      ),
+  },
 ];

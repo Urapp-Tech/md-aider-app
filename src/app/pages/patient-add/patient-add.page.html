@@ -1,0 +1,149 @@
+<app-header />
+
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <div class="tw-px-6">
+    <div class="tw-mb-6 tw-mt-4 tw-flex tw-items-center">
+      <h1
+        class="fvs-125 tw-m-0 tw-mt-2 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Add New Patient
+      </h1>
+
+      <ion-button class="tw-text-white tw-ion-bg-app-primary tw-ion-rounded-xl">
+        <ion-icon class="tw-text-xl" name="chevron-forward" slot="icon-only" />
+      </ion-button>
+    </div>
+
+    <form
+      class="tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
+      [formGroup]="addPatientForm"
+      (ngSubmit)="submit()"
+    >
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="firstName"
+          name="firstName"
+          formControlName="firstName"
+          type="text"
+          fill="solid"
+          placeholder="First Name"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="lastName"
+          name="lastName"
+          formControlName="lastName"
+          type="text"
+          fill="solid"
+          placeholder="Last Name"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="age"
+          name="age"
+          formControlName="age"
+          type="number"
+          fill="solid"
+          placeholder="Age"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="address"
+          name="address"
+          formControlName="address"
+          type="text"
+          fill="solid"
+          placeholder="Address"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="phone"
+          name="phone"
+          formControlName="phone"
+          type="text"
+          inputmode="numeric"
+          fill="solid"
+          placeholder="Phone"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="email"
+          name="email"
+          formControlName="email"
+          type="email"
+          fill="solid"
+          placeholder="Email"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow [&>.select-wrapper-inner]:tw-w-full"
+          id="gender"
+          name="gender"
+          formControlName="gender"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Gender"
+        >
+          <ion-select-option value="MALE">Male</ion-select-option>
+          <ion-select-option value="FEMALE">Female</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow"
+          id="status"
+          name="status"
+          formControlName="status"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Status"
+        >
+          <ion-select-option value="ACTIVE">Active</ion-select-option>
+          <ion-select-option value="INACTIVE">Inactive</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="occupation"
+          name="occupation"
+          formControlName="occupation"
+          type="text"
+          fill="solid"
+          placeholder="Occupation"
+        >
+        </ion-input>
+      </div>
+    </form>
+  </div>
+
+  <div class="tw-py-14"></div>
+
+  <app-tabs />
+</ion-content>

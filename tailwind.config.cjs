@@ -201,6 +201,7 @@ module.exports = {
       addVariant('ion-native', '&::part(native)');
       addVariant('ion-label', '&::part(label)');
       addVariant('ion-image', '&::part(image)');
+      addVariant('ion-container', '&::part(container)');
     }),
   ],
 };
