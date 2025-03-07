@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { TabsComponent } from 'src/app/components/tabs/tabs.component';
+import addWidthToSelectWrapperInner from 'src/app/utilities/add-width-to-select-wrapper-inner';
 import { IonicSharedModule } from 'src/modules/ionic-shared.module';
 import { SharedModule } from 'src/modules/shared.module';
 
@@ -35,26 +36,7 @@ export class PatientAddPage {
   }
 
   ionViewWillEnter() {
-    this.addWidthToSelectWrapperInner('gender');
-    this.addWidthToSelectWrapperInner('status');
-  }
-
-  addWidthToSelectWrapperInner(ionSelectId: string) {
-    const genderSelect = document.getElementById(ionSelectId);
-    if (!genderSelect) {
-      return;
-    }
-    const shadowRoot = genderSelect.shadowRoot;
-    if (!shadowRoot) {
-      return;
-    }
-    const selectWrapperInnerElement = shadowRoot.querySelector(
-      '.select-wrapper-inner'
-    );
-    if (!selectWrapperInnerElement) {
-      return;
-    }
-
-    selectWrapperInnerElement.setAttribute('style', 'width:100%');
+    addWidthToSelectWrapperInner('gender');
+    addWidthToSelectWrapperInner('status');
   }
 }
