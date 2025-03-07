@@ -22,6 +22,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'sign-up',
+    loadComponent: () =>
+      import('./pages/auth-sign-up/auth-sign-up.page').then(
+        (c) => c.AuthSignUpPage
+      ),
+  },
+  {
     path: 'forgot-password',
     loadComponent: () =>
       import('./pages/auth-forgot-password/auth-forgot-password.page').then(

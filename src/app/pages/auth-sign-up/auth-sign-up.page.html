@@ -1,0 +1,164 @@
+<ion-content [scrollY]="false">
+  <img
+    class="tw-fixed -tw-top-0 tw-h-screen tw-w-fill-available tw-object-cover"
+    src="assets/images/app-background-image.png"
+    alt=""
+  />
+
+  <div
+    class="fvs-125 tw-relative tw-mx-6 tw-flex tw-h-1/3 tw-items-center tw-font-anek-gurmukhi tw-text-5xl tw-font-semibold tw-text-white"
+  >
+    Create An Account
+  </div>
+
+  <form
+    class="tw-fixed tw-bottom-0 tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
+    [formGroup]="signUpForm"
+    (ngSubmit)="submit()"
+  >
+    <div class="tw-min-h-[60vh] tw-px-4 tw-py-2">
+      <h2
+        class="fvs-125 tw-mx-0 tw-mb-0 tw-mt-4 tw-w-full tw-pt-4 tw-text-start tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Sign Up
+      </h2>
+
+      <div class="tw-py-4"></div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="firstName"
+          name="firstName"
+          formControlName="firstName"
+          type="text"
+          fill="solid"
+          placeholder="First Name"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-ml-2 tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="signUpForm.controls.firstName"
+          [customErrorMessages]="{
+            required: 'first name is required.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="lastName"
+          name="lastName"
+          formControlName="lastName"
+          type="text"
+          fill="solid"
+          placeholder="lastName"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-ml-2 tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="signUpForm.controls.lastName"
+          [customErrorMessages]="{
+            required: 'last name is required.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="phone"
+          name="phone"
+          formControlName="phone"
+          type="text"
+          inputmode="numeric"
+          fill="solid"
+          placeholder="Phone"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-ml-2 tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="signUpForm.controls.phone"
+          [customErrorMessages]="{
+            required: 'phone is required.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="email"
+          name="email"
+          formControlName="email"
+          type="email"
+          fill="solid"
+          placeholder="Email"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-ml-2 tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="signUpForm.controls.email"
+          [customErrorMessages]="{
+            required: 'email is required.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="password"
+          name="password"
+          formControlName="password"
+          fill="solid"
+          placeholder="Password"
+          [type]="passwordVisible ? 'text' : 'password'"
+        >
+          <ion-button
+            type="button"
+            aria-label="Show/hide"
+            shape="round"
+            fill="clear"
+            slot="end"
+            (click)="passwordVisible = !passwordVisible"
+          >
+            <ion-icon
+              class="tw-text-xl tw-text-app-black"
+              aria-hidden="true"
+              slot="icon-only"
+              [name]="passwordVisible ? 'eye-outline' : 'eye-off-outline'"
+            />
+          </ion-button>
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-ml-2 tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="signUpForm.controls.password"
+          [customErrorMessages]="{
+            required: 'password is required.',
+            minlength:
+              'password must be at least <REQUIRED_LENGTH> characters.',
+          }"
+        />
+      </div>
+
+      <ion-button
+        class="tw-w-full tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-capitalize tw-text-app-secondary tw-ion-bg-app-primary tw-ion-text-white tw-ion-rounded-2xl tw-ion-shadow-none tw-ion-pb-4 tw-ion-pt-5"
+        type="submit"
+        expand="block"
+      >
+        Sign Up
+      </ion-button>
+
+      <p
+        class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+      >
+        Already have an account?
+        <a class="tw-font-medium tw-text-app-primary" role="link"> Sign In </a>
+      </p>
+
+      <div class="tw-py-4"></div>
+    </div>
+  </form>
+</ion-content>
