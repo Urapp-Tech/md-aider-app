@@ -1,0 +1,564 @@
+<app-header />
+
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <div class="tw-px-6">
+    <div class="tw-mb-6 tw-mt-4 tw-flex tw-items-center">
+      <h1
+        class="fvs-125 tw-m-0 tw-mt-2 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Add Doctor Profile
+      </h1>
+    </div>
+
+    <form
+      class="tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
+      [formGroup]="addDoctorProfileForm"
+      (ngSubmit)="submit()"
+    >
+      <input
+        #imageInput
+        id="image"
+        name="image"
+        type="file"
+        accept=".png, .jpg, .jpeg"
+        hidden
+        (change)="changeImage($event)"
+      />
+
+      <div class="tw-mb-2">
+        @if (!addDoctorProfileForm.controls.image.value) {
+          <div
+            class="tw-flex tw-items-center tw-justify-between tw-rounded-2xl tw-bg-white tw-px-4 tw-pb-6 tw-pt-7 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
+            (click)="imageInput.click()"
+          >
+            Upload
+            <ion-icon
+              class="tw-text-4xl tw-text-app-gray"
+              src="assets/icons/icon-happy-face.svg"
+            />
+          </div>
+        } @else {
+          <div
+            class="tw-relative tw-isolate tw-aspect-[30/16] tw-w-fill-available tw-overflow-hidden tw-rounded-2xl tw-bg-white"
+          >
+            <img
+              class="tw-h-full tw-w-full tw-object-contain"
+              alt=""
+              [src]="selectedImage"
+            />
+            <ion-button
+              class="tw-absolute tw-bottom-2 tw-right-2 tw-z-10 tw-ion-border-color-app-primary tw-ion-text-app-primary"
+              type="button"
+              fill="outline"
+              (click)="imageInput.click()"
+            >
+              <ion-icon src="assets/icons/icon-pencil.svg" slot="icon-only" />
+            </ion-button>
+          </div>
+        }
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="firstName"
+          name="firstName"
+          formControlName="firstName"
+          type="text"
+          fill="solid"
+          placeholder="First Name"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="lastName"
+          name="lastName"
+          formControlName="lastName"
+          type="text"
+          fill="solid"
+          placeholder="Last Name"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="date-of-birth-picker-trigger"
+          type="text"
+          fill="solid"
+          placeholder="Date Of Birth"
+          readonly
+          [value]="dateOfBirthValue | date: 'dd/MM/yyyy'"
+        >
+          <ion-button type="button" slot="end" shape="round" fill="clear">
+            <ion-icon
+              class="tw-text-app-black/30"
+              name="calendar-outline"
+              slot="icon-only"
+            >
+            </ion-icon>
+          </ion-button>
+        </ion-input>
+
+        <ion-popover
+          #dateOfBirthPicker
+          trigger="date-of-birth-picker-trigger"
+          triggerAction="click"
+          side="bottom"
+          alignment="end"
+          animated="true"
+        >
+          <ng-template>
+            <ion-datetime
+              class="date-of-birth-picker"
+              #dateOfBirth
+              id="dateOfBirth"
+              name="dateOfBirth"
+              formControlName="dateOfBirth"
+              presentation="date"
+              [min]="dateOfBirthMinimumDate"
+              [max]="dateOfBirthMaximumDate"
+              (ionChange)="dateOfBirthChanged(dateOfBirthPicker, dateOfBirth)"
+            >
+              <ion-buttons slot="buttons">
+                <ion-button
+                  class="tw-text-secondary-background"
+                  type="button"
+                  (click)="dateOfBirth.confirm()"
+                >
+                  Done
+                </ion-button>
+              </ion-buttons>
+            </ion-datetime>
+          </ng-template>
+        </ion-popover>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="phone"
+          name="phone"
+          formControlName="phone"
+          type="text"
+          inputmode="numeric"
+          fill="solid"
+          placeholder="Phone"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="email"
+          name="email"
+          formControlName="email"
+          type="email"
+          fill="solid"
+          placeholder="Email"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="address"
+          name="address"
+          formControlName="address"
+          type="text"
+          fill="solid"
+          placeholder="Address"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow [&>.select-wrapper-inner]:tw-w-full"
+          id="gender"
+          name="gender"
+          formControlName="gender"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Gender"
+        >
+          <ion-select-option value="MALE"> Male </ion-select-option>
+          <ion-select-option value="FEMALE"> Female </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow [&>.select-wrapper-inner]:tw-w-full"
+          id="designation"
+          name="designation"
+          formControlName="designation"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Designation"
+        >
+          <ion-select-option value="ONCOLOGIST"> Oncologist </ion-select-option>
+          <ion-select-option value="CARDIOLOGIST">
+            Cardiologist
+          </ion-select-option>
+          <ion-select-option value="DERMATOLOGIST">
+            Dermatologist
+          </ion-select-option>
+          <ion-select-option value="PEDIATRICIAN">
+            Pediatrician
+          </ion-select-option>
+          <ion-select-option value="ORTHOPEDIC_SURGEON">
+            Orthopedic Surgeon
+          </ion-select-option>
+          <ion-select-option value="NEUROLOGIST">
+            Neurologist
+          </ion-select-option>
+          <ion-select-option value="OPHTHALMOLOGIST">
+            Ophthalmologist
+          </ion-select-option>
+          <ion-select-option value="PSYCHIATRIST">
+            Psychiatrist
+          </ion-select-option>
+          <ion-select-option value="RADIOLOGIST">
+            Radiologist
+          </ion-select-option>
+          <ion-select-option value="GENERAL_SURGEON">
+            General Surgeon
+          </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow [&>.select-wrapper-inner]:tw-w-full"
+          id="expertise"
+          name="expertise"
+          formControlName="expertise"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Expertise"
+        >
+          <ion-select-option value="CARDIOLOGY"> Cardiology </ion-select-option>
+          <ion-select-option value="DERMATOLOGY">
+            Dermatology
+          </ion-select-option>
+          <ion-select-option value="ENDOCRINOLOGY">
+            Endocrinology
+          </ion-select-option>
+          <ion-select-option value="GASTROENTEROLOGY">
+            Gastroenterology
+          </ion-select-option>
+          <ion-select-option value="NEUROLOGY"> Neurology </ion-select-option>
+          <ion-select-option value="ONCOLOGY"> Oncology </ion-select-option>
+          <ion-select-option value="ORTHOPEDICS">
+            Orthopedics
+          </ion-select-option>
+          <ion-select-option value="PEDIATRICS"> Pediatrics </ion-select-option>
+          <ion-select-option value="PSYCHIATRY"> Psychiatry </ion-select-option>
+          <ion-select-option value="RADIOLOGY"> Radiology </ion-select-option>
+          <ion-select-option value="SURGERY"> Surgery </ion-select-option>
+          <ion-select-option value="UROLOGY"> Urology </ion-select-option>
+          <ion-select-option value="GENERAL_PRACTITIONER">
+            General Practitioner
+          </ion-select-option>
+          <ion-select-option value="FAMILY_MEDICINE">
+            Family Medicine
+          </ion-select-option>
+          <ion-select-option value="OBSTETRICS_AND_GYNECOLOGY">
+            Obstetrics & Gynecology
+          </ion-select-option>
+          <ion-select-option value="OPHTHALMOLOGY">
+            Ophthalmology
+          </ion-select-option>
+          <ion-select-option value="RHEUMATOLOGY">
+            Rheumatology
+          </ion-select-option>
+          <ion-select-option value="INFECTIOUS_DISEASE">
+            Infectious Disease
+          </ion-select-option>
+          <ion-select-option value="EMERGENCY_MEDICINE">
+            Emergency Medicine
+          </ion-select-option>
+          <ion-select-option value="PHYSICAL_MEDICINE_AND_REHABILITATION">
+            Physical Medicine & Rehabilitation
+          </ion-select-option>
+          <ion-select-option value="PLASTIC_SURGERY">
+            Plastic Surgery
+          </ion-select-option>
+          <ion-select-option value="DENTISTRY"> Dentistry </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow"
+          id="boardCertification"
+          name="boardCertification"
+          formControlName="boardCertification"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Board Certification"
+        >
+          <ion-select-option value="MD_KDC"> MD KDC </ion-select-option>
+          <ion-select-option value="MD_UTC"> MD UTC </ion-select-option>
+          <ion-select-option value="MD_PPT"> MD PPT </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow"
+          id="college"
+          name="college"
+          formControlName="college"
+          interface="popover"
+          fill="solid"
+          placeholder="Select College"
+        >
+          <ion-select-option value="COL_MD_KDC"> COL MD KDC </ion-select-option>
+          <ion-select-option value="COL_MD_UTC"> COL MD UTC </ion-select-option>
+          <ion-select-option value="COL_MD_PPT"> COL MD PPT </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow"
+          id="university"
+          name="university"
+          formControlName="university"
+          interface="popover"
+          fill="solid"
+          placeholder="Select University"
+        >
+          <ion-select-option value="UN_MD_KDC"> UN MD KDC </ion-select-option>
+          <ion-select-option value="UN_MD_UTC"> UN MD UTC </ion-select-option>
+          <ion-select-option value="UN_MD_PPT"> UN MD PPT </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow"
+          id="fellowship"
+          name="fellowship"
+          formControlName="fellowship"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Fellowship"
+        >
+          <ion-select-option value="SAM"> Sam </ion-select-option>
+          <ion-select-option value="FRODO"> Frodo </ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="tempExperience"
+          name="tempExperience"
+          formControlName="tempExperience"
+          type="text"
+          fill="solid"
+          placeholder="Experience (only 3)"
+        >
+          <ion-button
+            class="tw-text-app-black/30"
+            type="button"
+            fill="clear"
+            slot="end"
+            shape="round"
+            (click)="addExperience()"
+          >
+            <ion-icon name="add" slot="icon-only" />
+          </ion-button>
+        </ion-input>
+
+        <div
+          class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
+        >
+          @for (
+            item of addDoctorProfileForm.controls.experience.value;
+            track item
+          ) {
+            <div
+              class="tw-flex tw-items-center tw-rounded-xl tw-bg-[#F3F3F3] tw-px-2 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+            >
+              {{ item }}
+              <ion-button
+                class="tw-ml-1 tw-text-[0.5rem] tw-text-app-black tw-ion-p-0"
+                shape="round"
+                fill="clear"
+                (click)="removeExperience(item)"
+              >
+                <ion-icon name="remove" slot="icon-only" />
+              </ion-button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="tempSkill"
+          name="tempSkill"
+          formControlName="tempSkill"
+          type="text"
+          fill="solid"
+          placeholder="Skill (only 3)"
+        >
+          <ion-button
+            class="tw-text-app-black/30"
+            type="button"
+            fill="clear"
+            slot="end"
+            shape="round"
+            (click)="addSkill()"
+          >
+            <ion-icon name="add" slot="icon-only" />
+          </ion-button>
+        </ion-input>
+
+        <div
+          class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
+        >
+          @for (item of addDoctorProfileForm.controls.skill.value; track item) {
+            <div
+              class="tw-flex tw-items-center tw-rounded-xl tw-bg-[#F3F3F3] tw-px-2 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+            >
+              {{ item }}
+              <ion-button
+                class="tw-ml-1 tw-text-[0.5rem] tw-text-app-black tw-ion-p-0"
+                shape="round"
+                fill="clear"
+                (click)="removeSkill(item)"
+              >
+                <ion-icon name="remove" slot="icon-only" />
+              </ion-button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="tempLanguage"
+          name="tempLanguage"
+          formControlName="tempLanguage"
+          type="text"
+          fill="solid"
+          placeholder="Language (only 4)"
+        >
+          <ion-button
+            class="tw-text-app-black/30"
+            type="button"
+            fill="clear"
+            slot="end"
+            shape="round"
+            (click)="addLanguage()"
+          >
+            <ion-icon name="add" slot="icon-only" />
+          </ion-button>
+        </ion-input>
+
+        <div
+          class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
+        >
+          @for (
+            item of addDoctorProfileForm.controls.languages.value;
+            track item
+          ) {
+            <div
+              class="tw-flex tw-items-center tw-rounded-xl tw-bg-[#F3F3F3] tw-px-2 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+            >
+              {{ item }}
+              <ion-button
+                class="tw-ml-1 tw-text-[0.5rem] tw-text-app-black tw-ion-p-0"
+                shape="round"
+                fill="clear"
+                (click)="removeLanguage(item)"
+              >
+                <ion-icon name="remove" slot="icon-only" />
+              </ion-button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="tempSocialMedia"
+          name="tempSocialMedia"
+          formControlName="tempSocialMedia"
+          type="text"
+          fill="solid"
+          placeholder="Social Media (only 4)"
+        >
+          <ion-button
+            class="tw-text-app-black/30"
+            type="button"
+            fill="clear"
+            slot="end"
+            shape="round"
+            (click)="addSocialMedia()"
+          >
+            <ion-icon name="add" slot="icon-only" />
+          </ion-button>
+        </ion-input>
+
+        <div
+          class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
+        >
+          @for (
+            item of addDoctorProfileForm.controls.socialMedia.value;
+            track item
+          ) {
+            <div
+              class="tw-flex tw-items-center tw-rounded-xl tw-bg-[#F3F3F3] tw-px-2 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+            >
+              {{ item }}
+              <ion-button
+                class="tw-ml-1 tw-text-[0.5rem] tw-text-app-black tw-ion-p-0"
+                shape="round"
+                fill="clear"
+                (click)="removeSocialMedia(item)"
+              >
+                <ion-icon name="remove" slot="icon-only" />
+              </ion-button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-textarea
+          class="tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-px-0"
+          fill="solid"
+          placeholder="Type your Bio"
+          rows="4"
+        >
+        </ion-textarea>
+      </div>
+
+      <ion-button
+        class="tw-mt-4 tw-w-fill-available tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-pb-5 tw-ion-pt-6"
+        type="submit"
+      >
+        Save
+      </ion-button>
+    </form>
+  </div>
+
+  <div class="tw-py-14"></div>
+
+  <app-tabs />
+</ion-content>

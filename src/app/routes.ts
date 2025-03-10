@@ -82,4 +82,11 @@ export const routes: Routes = [
         (c) => c.PatientAddPage
       ),
   },
+  {
+    path: 'doctor-profile-add',
+    loadComponent: () =>
+      import('./pages/doctor-profile-add/doctor-profile-add.page').then(
+        (c) => c.DoctorProfileAddPage
+      ),
+  },
 ];
