@@ -6,13 +6,13 @@
       <h1
         class="fvs-125 tw-m-0 tw-mt-2 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
       >
-        Add Doctor Profile
+        {{ mode | titlecase }} Doctor Profile
       </h1>
     </div>
 
     <form
       class="tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
-      [formGroup]="addDoctorProfileForm"
+      [formGroup]="doctorProfileForm"
       (ngSubmit)="submit()"
     >
       <input
@@ -26,7 +26,7 @@
       />
 
       <div class="tw-mb-2">
-        @if (!addDoctorProfileForm.controls.image.value) {
+        @if (!doctorProfileForm.controls.image.value) {
           <div
             class="tw-flex tw-items-center tw-justify-between tw-rounded-2xl tw-bg-white tw-px-4 tw-pb-6 tw-pt-7 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
             (click)="imageInput.click()"
@@ -384,7 +384,7 @@
           class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
         >
           @for (
-            item of addDoctorProfileForm.controls.experience.value;
+            item of doctorProfileForm.controls.experience.value;
             track item
           ) {
             <div
@@ -429,7 +429,7 @@
         <div
           class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
         >
-          @for (item of addDoctorProfileForm.controls.skill.value; track item) {
+          @for (item of doctorProfileForm.controls.skill.value; track item) {
             <div
               class="tw-flex tw-items-center tw-rounded-xl tw-bg-[#F3F3F3] tw-px-2 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
             >
@@ -473,7 +473,7 @@
           class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
         >
           @for (
-            item of addDoctorProfileForm.controls.languages.value;
+            item of doctorProfileForm.controls.languages.value;
             track item
           ) {
             <div
@@ -519,7 +519,7 @@
           class="tw-my-2 tw-flex tw-flex-wrap tw-items-center tw-gap-x-4 tw-gap-y-2"
         >
           @for (
-            item of addDoctorProfileForm.controls.socialMedia.value;
+            item of doctorProfileForm.controls.socialMedia.value;
             track item
           ) {
             <div
@@ -534,6 +534,107 @@
               >
                 <ion-icon name="remove" slot="icon-only" />
               </ion-button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow"
+          id="day"
+          name="day"
+          formControlName="day"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Day"
+        >
+          @for (day of remainingScheduleDay; track day) {
+            <ion-select-option [value]="day">
+              {{ day | titlecase }}
+            </ion-select-option>
+          }
+        </ion-select>
+
+        <div class="tw-mt-2 tw-flex tw-w-full tw-gap-x-4">
+          <div class="tw-basis-1/2">
+            <ion-datetime-button
+              class="ion-native:tw-w-full ion-native:tw-border-2 ion-native:tw-border-solid ion-native:tw-border-app-primary ion-native:tw-bg-app-primary ion-native:tw-pb-3 ion-native:tw-pt-4 ion-native:tw-font-anek-gurmukhi ion-native:tw-text-sm ion-native:tw-font-semibold ion-native:tw-text-app-secondary"
+              datetime="startTime"
+            />
+            <ion-modal class="start-time-modal" [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  class="tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+                  id="startTime"
+                  name="startTime"
+                  formControlName="startTime"
+                  presentation="time"
+                  hourCycle="h12"
+                  minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
+                >
+                  <div class="tw-mt-1 tw-capitalize" slot="title">
+                    Select Start Time
+                  </div>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </div>
+
+          <div class="tw-basis-1/2">
+            <ion-datetime-button
+              class="ion-native:tw-w-full ion-native:tw-border-2 ion-native:tw-border-solid ion-native:tw-border-app-primary ion-native:tw-bg-app-primary ion-native:tw-pb-3 ion-native:tw-pt-4 ion-native:tw-font-anek-gurmukhi ion-native:tw-text-sm ion-native:tw-font-semibold ion-native:tw-text-app-secondary"
+              datetime="endTime"
+            />
+            <ion-modal class="end-time-modal" [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  class="tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+                  id="endTime"
+                  name="endTime"
+                  formControlName="endTime"
+                  presentation="time"
+                  hourCycle="h12"
+                  minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
+                >
+                  <div class="tw-mt-1 tw-capitalize" slot="title">
+                    Select End Time
+                  </div>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </div>
+        </div>
+
+        <ion-button
+          class="tw-mt-4 tw-w-fill-available tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-md tw-ion-pb-1 tw-ion-pt-2"
+          (click)="addSchedule()"
+        >
+          Add Schedule
+        </ion-button>
+
+        <div class="tw-my-2 tw-flex tw-flex-col tw-gap-x-4 tw-gap-y-2">
+          @for (
+            schedule of doctorProfileForm.controls.schedule.value;
+            track schedule.day
+          ) {
+            <div class="tw-rounded-2xl tw-bg-white tw-p-4">
+              <div class="tw-flex tw-items-center">
+                <div class="tw-grow tw-font-anek-gurmukhi">
+                  <div>{{ schedule.day | titlecase }}</div>
+                  <div>
+                    <span>{{ schedule.startTime | date: 'hh:mm a' }}</span>
+                    till
+                    <span>{{ schedule.endTime | date: 'hh:mm a' }}</span>
+                  </div>
+                </div>
+                <ion-button
+                  shape="round"
+                  (click)="removeSchedule(schedule.day)"
+                >
+                  <ion-icon name="remove" slot="icon-only" />
+                </ion-button>
+              </div>
             </div>
           }
         </div>
