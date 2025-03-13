@@ -83,6 +83,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'patient-visit-add',
+    loadComponent: () =>
+      import('./pages/patient-visit-add/patient-visit-add.page').then(
+        (c) => c.PatientVisitAddPage
+      ),
+  },
+  {
     path: 'doctor-profile',
     loadComponent: () =>
       import('./pages/doctor-profile/doctor-profile.page').then(

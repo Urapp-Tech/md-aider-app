@@ -1,0 +1,353 @@
+<app-header />
+
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <div class="tw-px-6">
+    <h1
+      class="fvs-125 tw-m-0 tw-mb-6 tw-mt-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Basic Info
+    </h1>
+
+    <section
+      class="tw-flex tw-flex-wrap tw-gap-y-2 tw-rounded-2xl tw-bg-white tw-px-3 tw-pb-3 tw-pt-2"
+      id="patient-info"
+    >
+      <div
+        class="tw-basis-1/3 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+      >
+        MR# 617
+      </div>
+      <div
+        class="tw-basis-1/3 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+      >
+        Age: 50
+      </div>
+      <div
+        class="tw-basis-1/3 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        8575 Auer Harbor
+      </div>
+      <div
+        class="tw-basis-1/3 tw-self-end tw-font-anek-gurmukhi tw-text-base tw-font-semibold tw-text-app-black"
+      >
+        Meggie Runolfsson
+      </div>
+      <div
+        class="tw-basis-1/3 tw-self-end tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+      >
+        female
+      </div>
+      <div
+        class="tw-basis-1/3 tw-self-end tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
+      >
+        <ion-icon class="tw-text-xs" src="assets/icons/icon-phone.svg" />
+        <span class="tw-underline"> 03211234567 </span>
+      </div>
+    </section>
+
+    <form
+      class="tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
+      [formGroup]="addPatientVisitForm"
+      (ngSubmit)="submit()"
+    >
+      @switch (tab) {
+        @case ('PRESENTING_COMPLAINTS') {
+          <ng-container
+            [ngTemplateOutlet]="presentingComplaints"
+            [ngTemplateOutletContext]="{
+              formGroup: addPatientVisitForm.controls.presentingComplaints,
+            }"
+          />
+        }
+        @case ('PRESCRIPTION') {
+          <ng-container
+            [ngTemplateOutlet]="prescription"
+            [ngTemplateOutletContext]="{
+              formGroup: addPatientVisitForm.controls.prescription,
+            }"
+          />
+        }
+        @case ('LAB_TEST') {
+          <ng-container
+            [ngTemplateOutlet]="labTest"
+            [ngTemplateOutletContext]="{
+              formGroup: addPatientVisitForm.controls.labTest,
+            }"
+          />
+        }
+        @case ('SCAN') {
+          <ng-container
+            [ngTemplateOutlet]="scan"
+            [ngTemplateOutletContext]="{
+              formGroup: addPatientVisitForm.controls.scan,
+            }"
+          />
+        }
+        @case ('PREVIOUS_VISITS') {
+          <ng-container [ngTemplateOutlet]="previousVisits" />
+        }
+      }
+    </form>
+  </div>
+
+  <div class="tw-py-14"></div>
+
+  <app-tabs />
+</ion-content>
+
+<ng-template #presentingComplaints let-formGroup="formGroup">
+  <section id="presentingComplaints" [formGroup]="formGroup">
+    <div
+      class="tw-mx-0 tw-mb-6 tw-mt-4 tw-flex tw-items-center tw-justify-between"
+    >
+      <h2
+        class="fvs-125 tw-m-0 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Presenting Complaints
+      </h2>
+
+      <ion-button
+        class="tw-ion-bg-app-primary tw-ion-rounded-xl"
+        (click)="nextTab()"
+      >
+        <ion-icon name="chevron-forward" slot="icon-only" />
+      </ion-button>
+    </div>
+
+    <div class="tw-mb-2">
+      <p class="tw-m-0 tw-font-anek-gurmukhi tw-text-xs tw-font-semibold">
+        Chief presenting complaints
+      </p>
+      <ion-input
+        class="tw-min-h-5 tw-font-anek-gurmukhi tw-text-sm tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+        id="chiefPresentingComplaints"
+        name="chiefPresentingComplaints"
+        formControlName="chiefPresentingComplaints"
+        type="text"
+        fill="solid"
+      />
+    </div>
+
+    <div class="tw-mb-2">
+      <p class="tw-m-0 tw-font-anek-gurmukhi tw-text-xs tw-font-semibold">
+        Type of complaint
+      </p>
+      <ion-radio-group
+        id="typeOfComplaint"
+        name="typeOfComplaint"
+        formControlName="typeOfComplaint"
+      >
+        <ion-radio
+          class="tw-w-32 tw-ion-color-checked-app-primary tw-ion-text-app-primary"
+          value="NEW"
+          labelPlacement="end"
+        >
+          <div
+            class="tw-mt-1.5 tw-w-32 tw-text-start tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+          >
+            New
+          </div>
+        </ion-radio>
+        <ion-radio
+          class="tw-w-32 tw-ion-color-checked-app-primary tw-ion-text-app-primary"
+          value="REMISSION"
+          labelPlacement="end"
+        >
+          <div
+            class="tw-mt-1.5 tw-w-32 tw-text-start tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+          >
+            Remission
+          </div>
+        </ion-radio>
+      </ion-radio-group>
+    </div>
+
+    <div class="tw-mb-2">
+      <p class="tw-m-0 tw-font-anek-gurmukhi tw-text-xs tw-font-semibold">
+        Duration
+      </p>
+
+      <div class="tw-flex tw-items-center tw-gap-x-4">
+        <div class="tw-basis-1/2">
+          <ion-input
+            class="tw-min-h-5 tw-font-anek-gurmukhi tw-text-sm tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+            id="duration-start-picker-trigger"
+            type="text"
+            fill="solid"
+            readonly
+            [value]="durationStartValue | date: 'dd/MM/yyyy'"
+          >
+            <ion-button type="button" slot="end" shape="round" fill="clear">
+              <ion-icon
+                class="tw-text-xl tw-text-app-black/30"
+                name="calendar-outline"
+                slot="icon-only"
+              >
+              </ion-icon>
+            </ion-button>
+          </ion-input>
+          <ion-popover
+            #durationStartPicker
+            trigger="duration-start-picker-trigger"
+            triggerAction="click"
+            side="bottom"
+            alignment="end"
+            animated="true"
+          >
+            <ng-template>
+              <ion-datetime
+                class="duration-start-picker"
+                #durationStart
+                id="durationStart"
+                name="durationStart"
+                formControlName="durationStart"
+                presentation="date"
+                (ionChange)="
+                  durationStartChanged(durationStartPicker, durationStart)
+                "
+              >
+                <ion-buttons slot="buttons">
+                  <ion-button
+                    class="tw-text-secondary-background"
+                    type="button"
+                    (click)="durationStart.confirm()"
+                  >
+                    Done
+                  </ion-button>
+                </ion-buttons>
+              </ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </div>
+        <div class="tw-basis-1/2">
+          <ion-input
+            class="tw-min-h-5 tw-font-anek-gurmukhi tw-text-sm tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+            id="duration-end-picker-trigger"
+            type="text"
+            fill="solid"
+            readonly
+            [disabled]="!durationStartValue"
+            [value]="durationEndValue | date: 'dd/MM/yyyy'"
+          >
+            <ion-button
+              type="button"
+              slot="end"
+              shape="round"
+              fill="clear"
+              [disabled]="!durationStartValue"
+            >
+              <ion-icon
+                class="tw-text-xl tw-text-app-black/30"
+                name="calendar-outline"
+                slot="icon-only"
+              >
+              </ion-icon>
+            </ion-button>
+          </ion-input>
+          <ion-popover
+            #durationEndPicker
+            trigger="duration-end-picker-trigger"
+            triggerAction="click"
+            side="bottom"
+            alignment="end"
+            animated="true"
+          >
+            <ng-template>
+              <ion-datetime
+                class="duration-end-picker"
+                #durationEnd
+                id="durationEnd"
+                name="durationEnd"
+                formControlName="durationEnd"
+                presentation="date"
+                [min]="durationEndMinimumDate"
+                (ionChange)="durationEndChanged(durationEndPicker, durationEnd)"
+              >
+                <ion-buttons slot="buttons">
+                  <ion-button
+                    class="tw-text-secondary-background"
+                    type="button"
+                    (click)="durationEnd.confirm()"
+                  >
+                    Done
+                  </ion-button>
+                </ion-buttons>
+              </ion-datetime>
+            </ng-template>
+          </ion-popover>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-template>
+
+<ng-template #prescription>
+  <div
+    class="tw-mx-0 tw-mb-6 tw-mt-4 tw-flex tw-items-center tw-justify-between"
+  >
+    <h2
+      class="fvs-125 tw-m-0 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Prescription
+    </h2>
+
+    <ion-button
+      class="tw-ion-bg-app-primary tw-ion-rounded-xl"
+      (click)="nextTab()"
+    >
+      <ion-icon name="chevron-forward" slot="icon-only" />
+    </ion-button>
+  </div>
+</ng-template>
+
+<ng-template #labTest>
+  <div
+    class="tw-mx-0 tw-mb-6 tw-mt-4 tw-flex tw-items-center tw-justify-between"
+  >
+    <h2
+      class="fvs-125 tw-m-0 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Lab Test
+    </h2>
+
+    <ion-button
+      class="tw-ion-bg-app-primary tw-ion-rounded-xl"
+      (click)="nextTab()"
+    >
+      <ion-icon name="chevron-forward" slot="icon-only" />
+    </ion-button>
+  </div>
+</ng-template>
+
+<ng-template #scan>
+  <div
+    class="tw-mx-0 tw-mb-6 tw-mt-4 tw-flex tw-items-center tw-justify-between"
+  >
+    <h2
+      class="fvs-125 tw-m-0 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Scan
+    </h2>
+
+    <ion-button
+      class="tw-ion-bg-app-primary tw-ion-rounded-xl"
+      (click)="nextTab()"
+    >
+      <ion-icon name="chevron-forward" slot="icon-only" />
+    </ion-button>
+  </div>
+</ng-template>
+
+<ng-template #previousVisits>
+  <section id="previousVisits">
+    <div
+      class="tw-mx-0 tw-mb-6 tw-mt-4 tw-flex tw-items-center tw-justify-between"
+    >
+      <h2
+        class="fvs-125 tw-m-0 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Previous Visits
+      </h2>
+    </div>
+  </section>
+</ng-template>
