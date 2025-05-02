@@ -8,46 +8,72 @@
       Patients Log
     </h1>
 
-    <div class="tw-flex tw-flex-col tw-gap-y-6">
-      @for (log of logs; track log.id) {
+    <div
+      class="tw-flex tw-flex-col tw-gap-y-6"
+      *ngIf="list?.length; else noVisits"
+    >
+      @for (plist of list; track plist.id; let i = $index) {
         <div
-          class="tw-flex tw-items-end tw-justify-between tw-border-0 tw-border-b tw-border-solid tw-border-app-black/25"
+          class="tw-flex tw-items-center tw-justify-between tw-border-0 tw-border-b tw-border-solid tw-border-app-black/25"
         >
           <div
             class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
           >
-            {{ log.id }}
+            {{ i + 1 }}.
           </div>
           <div
-            class="tw-w-[8ch] tw-font-anek-gurmukhi tw-text-sm tw-font-semibold tw-text-app-black"
+            class="tw-w-[8ch] tw-truncate tw-font-anek-gurmukhi tw-text-sm tw-font-semibold tw-capitalize tw-text-app-black"
+            (click)="navigateToPatientProfile(plist, i)"
           >
-            {{ log.firstName }} {{ log.lastName }}
+            {{ plist.name }}
           </div>
           <div
-            class="tw-w-[6ch] tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+            class="tw-w-[6ch] tw-font-anek-gurmukhi tw-font-medium tw-text-app-gray"
           >
-            {{ log.age }}
-            <br />
-            {{ log.gender }}
+            {{ plist.age }}
+            <span class="tw-m-0 tw-block tw-p-0 tw-capitalize">
+              {{ plist.gender }}
+            </span>
           </div>
           <div
-            class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
+            class="tw-w-[5ch] tw-truncate tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
           >
             <ion-icon class="tw-text-xs" src="assets/icons/icon-phone.svg" />
-            <span class="tw-underline"> {{ log.phoneNumber }} </span>
+            <span class="tw-underline tw-underline-offset-2">
+              {{ plist.phone }}
+            </span>
           </div>
           <div
             class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
           >
-            {{ log.date }}
+            {{ formatDate(plist.createdAt) }}
+          </div>
+          <div
+            class="tw-text-sm"
+            (click)="navigateToPatientUpdateProfile(plist)"
+          >
+            <ion-icon
+              class="tw-text-2xl"
+              style="color: black; font-size: 1.5rem"
+              name="create-outline"
+              slot="icon-only"
+            />
           </div>
         </div>
       }
     </div>
+    <ng-template #noVisits>
+      <p
+        class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+      >
+        There are no patients.
+      </p>
+    </ng-template>
   </div>
 
   <ion-button
     class="tw-fixed tw-bottom-[calc(1vw+1vh+6rem)] tw-right-[calc(1vw+1vh)] tw-ion-bg-app-primary tw-ion-rounded-2xl"
+    (click)="navigateToAddPage()"
   >
     <ion-icon class="tw-text-6xl" name="add" slot="icon-only" />
   </ion-button>

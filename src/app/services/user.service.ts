@@ -3,12 +3,14 @@ import { NavController } from '@ionic/angular/standalone';
 import { BehaviorSubject } from 'rxjs';
 import { UserData } from '../types/login.types';
 import { StorageService } from './storage.service';
+import { CapacitorStorageService } from './capacitor-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   constructor(
     private readonly storageService: StorageService,
-    private readonly navController: NavController
+    private readonly navController: NavController,
+    private readonly capacitorStorageService: CapacitorStorageService
   ) {}
 
   private _userData = this.storageService.getItem<UserData>('USER_DATA');
@@ -32,6 +34,7 @@ export class UserService {
 
   logout() {
     this.userData = null;
-    this.navController.navigateRoot('/login');
+    this.capacitorStorageService.clear();
+    this.navController.navigateRoot('/sign-in', { replaceUrl: true });
   }
 }

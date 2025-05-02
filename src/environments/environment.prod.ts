@@ -1,5 +1,5 @@
 const PROTOCOL = 'https';
-const DOMAIN = 'md-aider.urapptech.com';
+const DOMAIN = 'mdaider.urapptech.com';
 const PORT = '';
 const TransformedPort = PORT ? `:${PORT}` : '';
 

@@ -10,6 +10,7 @@
 
     <ion-button
       class="tw-flex tw-items-center tw-capitalize tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-shadow-none tw-ion-pb-8 tw-ion-pt-10"
+      (click)="openCamera()"
     >
       <div
         class="tw-grow tw-text-start tw-font-anek-gurmukhi tw-text-xl tw-font-semibold"
@@ -26,7 +27,15 @@
 
     <ion-button
       class="tw-flex tw-items-center tw-capitalize tw-text-app-black tw-ion-bg-white tw-ion-rounded-2xl tw-ion-shadow-none tw-ion-pb-8 tw-ion-pt-10"
+      (click)="imageInput.click()"
     >
+      <input
+        #imageInput
+        type="file"
+        accept="image/png, image/jpeg, image/jpg"
+        hidden
+        (change)="handleImageUpload($event)"
+      />
       <div
         class="tw-grow tw-text-start tw-font-anek-gurmukhi tw-text-xl tw-font-semibold"
       >
@@ -38,26 +47,65 @@
       />
     </ion-button>
 
-    <div class="tw-py-3.5"></div>
+    <div class="tw-py-3.5">
+      <div class="tw-mt-4 tw-w-full tw-max-w-xs" *ngIf="uploadedImageUrl">
+        <img
+          class="tw-w-full tw-rounded-2xl tw-object-contain tw-shadow"
+          alt="Uploaded Preview"
+          [src]="uploadedImageUrl"
+        />
+      </div>
+    </div>
 
-    <p
-      class="tw-m-0 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+    <div *ngIf="uploadedImageUrl">
+      <ion-button
+        class="tw-flex tw-items-center tw-capitalize tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-shadow-none tw-ion-pb-5 tw-ion-pt-5"
+        (click)="scanDisease()"
+      >
+        <div
+          class="tw-grow tw-text-start tw-font-anek-gurmukhi tw-text-xl tw-font-semibold"
+        >
+          Analyze
+        </div>
+        <ion-icon class="tw-text-4xl" name="sync-circle-outline" />
+      </ion-button>
+    </div>
+
+    <div
+      class="tw-mx-auto tw-mt-6 tw-w-full tw-max-w-md tw-rounded-2xl tw-bg-white tw-p-2 tw-shadow-md"
+      *ngIf="results"
     >
-      <span class="tw-text-app-primary">Note : </span>
-      Pariatur qui veritatis illum porro asperiores dolor ducimus nihil. Maxime
-      quia voluptates deserunt dolor quos blanditiis quis optio et. Dolor
-      eligendi voluptatem quo repellendus consectetur nesciunt id. Vel deleniti
-      labore quam voluptas eum eius. Veniam reiciendis alias enim sit
-      exercitationem neque officiis quam sed. Et qui repellat voluptatem et
-      dolorem non ipsam eveniet. Numquam molestiae enim labore incidunt modi
-      voluptatem commodi. Quis alias magnam iste inventore eos repellat. Et
-      eaque atque voluptas pariatur in nostrum architecto. Qui mollitia sit
-      ipsum dolores blanditiis magni sapiente. Tenetur perspiciatis rerum sequi.
-      Vel qui et ex. Magni consequuntur perferendis illo voluptatum tempora
-      quisquam repellat. Odit officiis facilis. Cumque amet non quaerat quaerat.
-      Qui et eligendi molestiae omnis beatae ipsum neque. Tempore veniam totam
-      corporis laborum cumque. Aut quia sed qui enim.
-    </p>
+      <div class="tw-mb-2 tw-items-center tw-justify-between tw-p-2">
+        <span
+          class="tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-underline tw-underline-offset-2"
+        >
+          Results
+        </span>
+
+        <span
+          class="tw-block tw-w-full tw-text-center tw-text-2xl tw-font-bold tw-text-app-gray"
+        >
+          {{ results.name }}
+        </span>
+      </div>
+
+      <div class="tw-h-10 tw-w-full tw-rounded-full tw-bg-gray-200">
+        <div
+          class="tw-flex tw-h-full tw-items-center tw-justify-end tw-rounded-full tw-bg-app-primary tw-pr-2 tw-text-sm tw-font-medium tw-text-white"
+          [ngStyle]="{ width: results.percentage + '%' }"
+        >
+          {{ results.percentage }} %
+        </div>
+      </div>
+      <p
+        class="tw-m-0 tw-mt-3 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+      >
+        <span class="tw-text-app-primary">Note : </span>
+        These results are generated using a machine learning model and may not
+        be 100% accurate. Please consult a medical professional for a definitive
+        diagnosis. This tool is intended for preliminary analysis only.
+      </p>
+    </div>
   </div>
 
   <div class="tw-py-14"></div>

@@ -2,11 +2,20 @@
 
 <ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
   <div class="tw-px-6">
-    <h1
-      class="fvs-125 tw-mx-0 tw-mb-6 tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
-    >
-      Patient Profile
-    </h1>
+    <app-back-header title="Patient Profile"></app-back-header>
+    <!-- <div>
+      <ion-button
+        class="tw-flex tw-items-center tw-capitalize tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-shadow-none tw-ion-pb-8 tw-ion-pt-10"
+        (click)="navigateBack()"
+      >
+        <ion-icon class="tw-text-4xl" src="assets/icons/icon-arrow-left.svg" />
+      </ion-button>
+      <h1
+        class="fvs-125 tw-mx-0 tw-mb-6 tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+      >
+        Patient Profile
+      </h1>
+    </div> -->
 
     <p
       class="tw-m-0 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
@@ -18,28 +27,28 @@
       <h3
         class="tw-m-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
       >
-        617
+        {{ patientData.mrNo }}
       </h3>
 
       <div
         class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
       >
         <ion-icon class="tw-text-xs" src="assets/icons/icon-phone.svg" />
-        <span class="tw-underline"> 03211234567 </span>
+        <span class="tw-underline"> {{ patientData.phone }} </span>
       </div>
     </div>
 
     <div class="tw-mb-4 tw-flex tw-items-end tw-justify-between">
       <h2
-        class="tw-m-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+        class="tw-m-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-capitalize tw-text-app-black"
       >
-        Shehroz Asif
+        {{ patientData.name }}
       </h2>
 
       <h3
         class="tw-m-0 tw-font-anek-gurmukhi tw-text-xl tw-font-normal tw-text-app-black"
       >
-        Male
+        {{ patientData.gender }}
       </h3>
     </div>
 
@@ -52,13 +61,13 @@
       <h3
         class="tw-m-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
       >
-        19
+        {{ patientData.age }}
       </h3>
 
       <div
         class="tw-font-anek-gurmukhi tw-text-xl tw-font-normal tw-text-app-black"
       >
-        633 Rosalind Forge
+        {{ patientData.address || 'No Address Updated' }}
       </div>
     </div>
 
@@ -71,42 +80,65 @@
 
       <div
         class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
+        (click)="navigateToPatientVisitCreate(patientData)"
       >
         + Create new revisit
       </div>
     </div>
 
-    <div class="tw-min-h-40 tw-rounded-2xl tw-bg-white tw-px-2 tw-py-4">
-      <table class="table-fixed tw-w-full">
-        <thead>
-          <tr
-            class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
-          >
-            <th class="tw-text-start">Visit</th>
-            <th class="tw-text-start">Pres. Complaint</th>
-            <th class="tw-text-start">Medical Note</th>
-            <th class="tw-text-start"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            class="tw-text-center tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
-          >
-            <td class="tw-text-start">Nov 27 2023</td>
-            <td>...</td>
-            <td>...</td>
-            <td class="tw-text-center">
-              <ion-button class="tw-text-app-black" fill="clear" shape="round">
-                <ion-icon
-                  class="tw-text-base"
-                  name="eye-outline"
-                  slot="icon-only"
-                />
-              </ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div
+      class="tw-max-h-[200px] tw-overflow-auto tw-rounded-2xl tw-bg-white tw-px-4 tw-py-4"
+    >
+      <ng-container *ngIf="list?.length; else noVisits">
+        <table class="table-fixed tw-w-full">
+          <thead>
+            <tr
+              class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+            >
+              <th class="tw-text-start">Visit</th>
+              <th class="tw-text-start">Pres. Complaint</th>
+              <th class="tw-text-start">Medical Note</th>
+              <th class="tw-text-start"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="tw-text-center tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+              *ngFor="let plist of list; let i = index"
+            >
+              <td class="tw-text-start">
+                {{ formatDate(plist.createdAt) }}
+              </td>
+              <td>
+                <span>{{ plist.chiefComplaint }}</span>
+              </td>
+              <td class="tw-truncate">{{ plist.medicalNote }}</td>
+              <td class="tw-text-center">
+                <ion-button
+                  class="tw-text-app-black"
+                  fill="clear"
+                  shape="round"
+                  (click)="navigateToPatientVisitHistory(plist)"
+                >
+                  <ion-icon
+                    class="tw-text-base"
+                    name="eye-outline"
+                    slot="icon-only"
+                  />
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <ng-template #noVisits>
+        <p
+          class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+        >
+          There are no previous visits.
+        </p>
+      </ng-template>
     </div>
   </div>
 

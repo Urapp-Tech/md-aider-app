@@ -31,6 +31,9 @@ import {
   IonTitle,
   IonToggle,
   IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from '@ionic/angular/standalone';
 
 const imports = [
@@ -65,6 +68,9 @@ const imports = [
   IonTitle,
   IonToggle,
   IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol,
 ];
 
 @NgModule({

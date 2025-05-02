@@ -1,0 +1,456 @@
+<app-header />
+
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <div class="tw-px-6">
+    <app-back-header title="Patient Visit History"></app-back-header>
+    <!-- <h1
+      class="fvs-125 tw-mx-0 tw-mb-6 tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Patient Visit History
+    </h1> -->
+  </div>
+  <!-- Main Section: Presenting Complaints -->
+  <ion-accordion-group>
+    <!-- Presenting Complaints Accordion -->
+    <ion-accordion value="presenting-complaints">
+      <ion-item slot="header" color="light">
+        <ion-label class="tw-font-anek-gurmukhi tw-text-sm tw-font-semibold">
+          Presenting Complaints
+        </ion-label>
+      </ion-item>
+      <div class="tw-rounded-b-2xl tw-bg-white tw-p-4" slot="content">
+        <div class="tw-m-1 tw-mb-3 tw-grid tw-grid-cols-12 tw-gap-4">
+          <div class="tw-col-span-6">
+            <span
+              class="tw-block tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-2"
+            >
+              Chief Presenting Complaints
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ patientData?.chiefComplaint || 'N/A' }}</span
+            >
+          </div>
+          <div class="tw-col-span-6">
+            <span
+              class="tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-4"
+            >
+              Type of Complaint
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ patientData?.complaintType || 'N/A' }}</span
+            >
+          </div>
+        </div>
+        <div class="tw-m-1 tw-mb-3 tw-grid tw-grid-cols-12 tw-gap-4">
+          <div class="tw-col-span-6">
+            <span
+              class="tw-block tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-2"
+            >
+              Symptoms
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ patientData?.symptoms || 'N/A' }}</span
+            >
+          </div>
+          <div class="tw-col-span-6">
+            <span
+              class="tw-block tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-4"
+            >
+              Diagnosis
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ patientData?.diagnose || 'N/A' }}</span
+            >
+          </div>
+        </div>
+        <div class="tw-m-1 tw-mb-3 tw-grid tw-grid-cols-12 tw-gap-4">
+          <div class="tw-col-span-6">
+            <span
+              class="tw-block tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-2"
+            >
+              Differential Diagnosis
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ patientData?.differentialDiagnose || 'N/A' }}</span
+            >
+          </div>
+          <div class="tw-col-span-6">
+            <span
+              class="tw-block tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-4"
+            >
+              Duration Start
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ formatDate(patientData?.complaintDurationStartTime) }}</span
+            >
+          </div>
+        </div>
+        <div class="tw-m-1 tw-mb-3 tw-grid tw-grid-cols-12 tw-gap-4">
+          <div class="tw-col-span-6">
+            <span
+              class="tw-block tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-2"
+            >
+              Duration End
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ formatDate(patientData?.complaintDurationEndTime) }}</span
+            >
+          </div>
+          <div class="tw-col-span-6">
+            <span
+              class="tw-block tw-font-anek-gurmukhi tw-font-bold tw-text-app-gray tw-underline tw-underline-offset-4"
+            >
+              Follow Up
+            </span>
+            <span
+              class="tw-font-anek-gurmukhi tw-text-sm tw-capitalize tw-ion-text-app-secondary"
+              >{{ formatDate(patientData?.complaintFollowUpTime) }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="prescriptions">
+      <ion-item slot="header" color="light">
+        <ion-label class="tw-font-anek-gurmukhi tw-text-sm tw-font-semibold">
+          Prescriptions
+        </ion-label>
+      </ion-item>
+      <div class="tw-rounded-b-2xl tw-bg-white tw-p-4" slot="content">
+        <ng-container *ngIf="patientData?.prescriptions?.length; else noVisits">
+          <table class="table-fixed tw-w-full">
+            <thead class="">
+              <tr
+                class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+              >
+                <th class="tw-pb-3 tw-text-start">Drug</th>
+                <th class="tw-block tw-pb-3 tw-text-start">Strength</th>
+                <th class="tw-px-2 tw-pb-3 tw-text-start">Dose</th>
+                <th class="tw-block tw-pb-3 tw-text-start">D.Start</th>
+                <th class="tw-px-2 tw-pb-3 tw-text-start">D.End</th>
+              </tr>
+            </thead>
+            <tbody class="">
+              <tr
+                class="tw-mt-4 tw-text-center tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black"
+                *ngFor="let plist of patientData?.prescriptions; let i = index"
+              >
+                <td class="tw-text-start">
+                  {{ plist.drugName }}
+                </td>
+                <td class="tw-px-2 tw-text-start">
+                  <span>{{ plist.strength }}</span>
+                </td>
+                <td class="tw-px-2 tw-text-start">
+                  {{ plist.dose }}
+                </td>
+                <td class="tw-truncate tw-text-start">
+                  {{ formatDate(plist?.pdurationStart) }}
+                </td>
+                <td class="tw-truncate tw-px-2 tw-text-start">
+                  {{ formatDate(plist?.pdurationEnd) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #noVisits>
+          <p
+            class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+          >
+            There are no prescriptions.
+          </p>
+        </ng-template>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="lab-tests">
+      <ion-item slot="header" color="light">
+        <ion-label class="tw-font-anek-gurmukhi tw-text-sm tw-font-semibold">
+          Lab Tests
+        </ion-label>
+      </ion-item>
+      <div class="tw-rounded-b-2xl tw-bg-white tw-p-4" slot="content">
+        <div class="tw-flex tw-items-center">
+          <ion-icon
+            class="tw-text-base"
+            name="ellipse-outline"
+            slot="icon-only"
+          />
+          <span
+            class="tw-mt-1 tw-px-1 tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-ion-text-app-primary"
+            >Test</span
+          >
+        </div>
+        <div
+          class="tw-m-2 tw-flex tw-flex-wrap tw-items-center tw-justify-start tw-gap-3"
+        >
+          <span
+            class="tw-block tw-rounded tw-bg-app-primary tw-px-3 tw-py-1 tw-text-sm tw-text-app-secondary"
+            *ngIf="patientData?.cbc"
+            >{{ patientData?.cbc ? 'CBC' : '' }}</span
+          >
+          <span
+            class="tw-block tw-rounded tw-bg-app-primary tw-px-3 tw-py-1 tw-text-sm tw-text-app-secondary"
+            *ngIf="patientData?.uce"
+            >{{ patientData?.uce ? 'UCE' : '' }}</span
+          >
+          <span
+            class="tw-block tw-rounded tw-bg-app-primary tw-px-3 tw-py-1 tw-text-sm tw-text-app-secondary"
+            *ngIf="patientData?.lft"
+            >{{ patientData?.lft ?? 'LFT' }}</span
+          >
+          <span
+            class="tw-block tw-rounded tw-bg-app-primary tw-px-3 tw-py-1 tw-text-sm tw-text-app-secondary"
+            *ngIf="patientData?.radiology"
+            >{{ patientData?.radiology ? 'Radiology' : '' }}</span
+          >
+          <span
+            class="tw-block tw-rounded tw-bg-app-primary tw-px-3 tw-py-1 tw-text-sm tw-text-app-secondary"
+            *ngIf="patientData?.biopsy"
+            >{{ patientData?.biopsy ? 'Biopsy' : '' }}</span
+          >
+          <span
+            class="tw-block tw-rounded tw-bg-app-primary tw-px-3 tw-py-1 tw-text-sm tw-text-app-secondary"
+            *ngIf="patientData?.urineDr"
+            >{{ patientData?.urineDr ? 'Urine-Dr' : '' }}</span
+          >
+          <span
+            class="tw-block tw-rounded tw-bg-app-primary tw-px-3 tw-py-1 tw-text-sm tw-text-app-secondary"
+            *ngIf="patientData?.otherLabsDesc"
+          >
+            {{ patientData?.otherLabsDesc ? patientData?.otherLabsDesc : '' }}
+          </span>
+        </div>
+        <div class="tw-flex tw-items-center">
+          <ion-icon
+            class="tw-text-base"
+            name="ellipse-outline"
+            slot="icon-only"
+          />
+          <span
+            class="tw-mt-1 tw-px-1 tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-ion-text-app-primary"
+            >Documents / Images</span
+          >
+        </div>
+        <div
+          class="tw-flex tw-flex-wrap tw-gap-3"
+          *ngIf="patientData?.labMedia?.length"
+        >
+          <ng-container *ngFor="let file of patientData.labMedia">
+            <img
+              class="tw-h-20 tw-w-20 tw-rounded-xl tw-object-cover tw-p-2"
+              alt="Lab Image"
+              *ngIf="isImage(file.url)"
+              [src]="file.url"
+            />
+            <div
+              class="tw-flex tw-items-center tw-gap-2 tw-rounded-lg tw-bg-gray-100 tw-p-2"
+              *ngIf="!isImage(file.url)"
+            >
+              <ion-icon
+                class="tw-text-4xl"
+                name="document-text-outline"
+              ></ion-icon>
+              <a
+                class="tw-block tw-w-16 tw-truncate tw-text-sm tw-text-blue-600 hover:tw-underline"
+                download
+                [href]="file.url"
+              >
+                {{ file.url.split('/').pop() }}
+              </a>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="scans">
+      <ion-item slot="header" color="light">
+        <ion-label class="tw-font-anek-gurmukhi tw-text-sm tw-font-semibold">
+          Scan Images
+        </ion-label>
+      </ion-item>
+      <div class="tw-rounded-b-2xl tw-bg-white tw-p-4" slot="content">
+        <div
+          class="tw-grid tw-grid-cols-1 tw-gap-4 md:tw-grid-cols-2 lg:tw-grid-cols-3"
+        >
+          <div
+            class="tw-flex tw-h-72 tw-flex-col tw-items-center tw-justify-center tw-rounded-2xl tw-border tw-border-gray-200 tw-bg-app-secondary tw-p-4 tw-shadow-md"
+            *ngFor="let scan of patientData?.scanMedia"
+          >
+            <img
+              class="tw-max-h-48 tw-w-full tw-rounded-lg tw-object-contain"
+              alt="Scan Image"
+              [src]="scan.url"
+            />
+            <p
+              class="tw-mt-4 tw-line-clamp-2 tw-text-center tw-text-sm tw-font-medium tw-text-app-black"
+            >
+              {{ scan.caption }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="prev-visits">
+      <ion-item slot="header" color="light">
+        <ion-label class="tw-font-anek-gurmukhi tw-text-sm tw-font-semibold">
+          Previous Visits
+        </ion-label>
+      </ion-item>
+      <div class="tw-rounded-b-2xl tw-bg-white tw-p-4" slot="content">
+        <div
+          class="tw-max-h-[200px] tw-overflow-auto tw-rounded-2xl tw-bg-white tw-px-4 tw-py-4"
+        >
+          <ng-container *ngIf="allPateintData?.length > 0; else noPrevVisits">
+            <table class="table-fixed tw-w-full">
+              <thead>
+                <tr
+                  class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+                >
+                  <th class="tw-mx-2 tw-mb-3 tw-w-16 tw-text-start">Visit</th>
+                  <th class="tw-mb-3 tw-px-2 tw-text-start">Pres. Complaint</th>
+                  <th class="tw-mb-3 tw-text-start">Medical Note</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let plist of allPateintData">
+                  <tr
+                    class="tw-border-b tw-border-gray-200 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-app-black hover:tw-bg-gray-50"
+                    *ngIf="plist.id !== patientId"
+                  >
+                    <td
+                      class="tw-whitespace-nowrap tw-py-2 tw-pr-2 tw-text-start"
+                    >
+                      {{ formatDate(plist.createdAt) }}
+                    </td>
+                    <td
+                      class="tw-max-w-[150px] tw-overflow-hidden tw-text-ellipsis tw-text-wrap tw-px-2 tw-py-2"
+                    >
+                      {{ plist.chiefComplaint }}
+                    </td>
+                    <td
+                      class="tw-max-w-[150px] tw-overflow-hidden tw-text-ellipsis tw-whitespace-nowrap tw-px-2 tw-py-2"
+                    >
+                      {{ plist.medicalNote }}
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </ng-container>
+
+          <ng-template #noPrevVisits>
+            <p
+              class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+            >
+              There are no previous visits.
+            </p>
+          </ng-template>
+        </div>
+      </div>
+    </ion-accordion>
+    <!-- Add more accordions here for Prescription, Lab Tests, etc. -->
+  </ion-accordion-group>
+  <!-- <section class="tw-m-5">
+    <h2
+      class="tw-mb-3 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-ion-text-app-secondary"
+    >
+      Presenting Complaints
+    </h2>
+
+    <div class="tw-mb-3">
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Chief Presenting Complaints
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ patientData?.chiefComplaint || 'N/A' }}
+      </p>
+    </div>
+
+    <div class="tw-mb-3">
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Type Of Complaint
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ patientData?.complaintType || 'N/A' }}
+      </p>
+    </div>
+
+    <div class="tw-mb-3">
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Symptoms
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ patientData?.symptoms || 'N/A' }}
+      </p>
+    </div>
+
+    <div class="tw-mb-3">
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Diagnosis
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ patientData?.diagnose || 'N/A' }}
+      </p>
+    </div>
+
+    <div class="tw-mb-3">
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Differential Diagnosis
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ patientData?.differentialDiagnose || 'N/A' }}
+      </p>
+    </div>
+
+    <div class="tw-mb-3">
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Duration Start
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ formatDate(patientData?.complaintDurationStartTime) }}
+      </p>
+    </div>
+
+    <div>
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Duration End
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ formatDate(patientData?.complaintDurationEndTime) }}
+      </p>
+    </div>
+
+    <div>
+      <p
+        class="tw-mb-1 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        Duration End
+      </p>
+      <p class="tw-text-sm tw-text-app-gray">
+        {{ formatDate(patientData?.complaintFollowUpTime) }}
+      </p>
+    </div>
+  </section> -->
+</ion-content>

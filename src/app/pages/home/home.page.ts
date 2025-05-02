@@ -5,6 +5,10 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { TabsComponent } from 'src/app/components/tabs/tabs.component';
 import { IonicSharedModule } from 'src/modules/ionic-shared.module';
 import { SharedModule } from 'src/modules/shared.module';
+import { ActivityService } from 'src/app/services/home.service';
+import { UserService } from 'src/app/services/user.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +24,25 @@ import { SharedModule } from 'src/modules/shared.module';
   ],
 })
 export class HomePage {
-  constructor() {}
+  constructor(
+    private activityService: ActivityService,
+    private readonly userService: UserService,
+    private readonly toastService: ToastService,
+    private readonly navController: NavController
+  ) {
+    const user = this.userService.userData;
+    if (user) {
+      this.doctorName = `${user.firstName} ${user.lastName}` || 'Doctor';
+    }
+    this.activityService.getDashboardActivity().subscribe({
+      next: (data) => (this.activityData = data.data),
+      error: async (err) =>
+        await this.toastService.show(err.error.message, 2000, 'Error', 'top'),
+    });
+  }
+
+  doctorName: string = 'Doctor';
+  activityData: any = {};
 
   barChartData: ChartData<'bar'> = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
@@ -91,4 +113,8 @@ export class HomePage {
       },
     },
   };
+
+  navigateToScanDisease() {
+    return this.navController.navigateRoot(['/scan-disease']);
+  }
 }

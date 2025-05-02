@@ -18,7 +18,7 @@ import {
 import { provideCharts } from 'ng2-charts';
 import { AppComponent } from './app/app.component';
 import { AuthenticationInterceptor } from './app/interceptors/authentication.interceptor';
-import { routes } from './app/routes';
+import { routes } from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [

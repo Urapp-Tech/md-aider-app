@@ -9,6 +9,16 @@ export const API_PATHS = {
     return url.toString();
   },
 
+  getOtp() {
+    const url = new URL(`/api/v1/app/doctor/get-otp`, environment.baseURL);
+    return url.toString();
+  },
+
+  newPassword() {
+    const url = new URL(`/api/v1/app/doctor/new-password`, environment.baseURL);
+    return url.toString();
+  },
+
   getDashboardActivity() {
     const url = new URL(
       `/api/v1/admin/dashboard/activity`,
@@ -17,22 +27,49 @@ export const API_PATHS = {
     return url.toString();
   },
 
-  getCabins(page = 0, size = 10, search = '') {
-    const url = new URL(`/api/v1/admin/cabin/list`, environment.baseURL);
-    url.searchParams.append('page', page.toString());
-    url.searchParams.append('size', size.toString());
-    if (search) url.searchParams.append('search', search.toString());
+  getPatients(page = 0, size = 10, search = '') {
+    const url = new URL(`/api/v1/admin/patient/list`, environment.baseURL);
+    // url.searchParams.append('page', page.toString());
+    // url.searchParams.append('size', size.toString());
+    // if (search) url.searchParams.append('search', search.toString());
     return url.toString();
   },
 
-  addCabin() {
-    const url = new URL(`/api/v1/admin/cabin/create`, environment.baseURL);
+  createPatient() {
+    const url = new URL(`/api/v1/admin/patient/create`, environment.baseURL);
     return url.toString();
   },
 
-  editCabin(cabinId: string) {
+  updatePatient(pId: string) {
     const url = new URL(
-      `/api/v1/admin/cabin/update/${cabinId}`,
+      `/api/v1/admin/patient/update/${pId}`,
+      environment.baseURL
+    );
+    return url.toString();
+  },
+
+  getPatientVisit(page = 0, size = 10, search = '') {
+    const url = new URL(
+      `/api/v1/admin/patient/visit/list`,
+      environment.baseURL
+    );
+    // url.searchParams.append('page', page.toString());
+    // url.searchParams.append('size', size.toString());
+    // if (search) url.searchParams.append('search', search.toString());
+    return url.toString();
+  },
+
+  createPatientVisit() {
+    const url = new URL(
+      `/api/v1/admin/patient/visit/create`,
+      environment.baseURL
+    );
+    return url.toString();
+  },
+
+  createScanDisease() {
+    const url = new URL(
+      `/api/v1/admin/scan-disease/create`,
       environment.baseURL
     );
     return url.toString();

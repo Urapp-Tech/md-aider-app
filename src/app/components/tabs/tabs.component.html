@@ -70,7 +70,12 @@
     <ion-button
       class="tw-flex tw-items-center tw-justify-center tw-ion-bg-transparent tw-ion-shadow-none tw-ion-p-4"
       shape="round"
-      [cn]="['tw-text-app-gray', false && 'tw-text-app-primary tw-scale-110']"
+      routerLink="/patient-add"
+      routerDirection="root"
+      [cn]="[
+        'tw-text-app-gray',
+        routeIsActive('/patient-add') && 'tw-text-app-primary tw-scale-110',
+      ]"
     >
       <ion-icon
         class="tw-text-4xl"

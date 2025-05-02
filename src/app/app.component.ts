@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
+  cameraOutline,
+  imagesOutline,
   add,
   addCircle,
   arrowBack,
@@ -18,6 +20,7 @@ import {
   checkmarkCircleOutline,
   chevronDown,
   chevronForward,
+  chevronBack,
   close,
   construct,
   createOutline,
@@ -67,6 +70,9 @@ import {
   trash,
   trashOutline,
   triangle,
+  ellipseOutline,
+  syncCircleOutline,
+  personCircleOutline,
 } from 'ionicons/icons';
 import { register } from 'swiper/element/bundle';
 
@@ -82,6 +88,12 @@ register();
 export class AppComponent {
   constructor() {
     addIcons({
+      logOutOutline,
+      personCircleOutline,
+      syncCircleOutline,
+      ellipseOutline,
+      cameraOutline,
+      imagesOutline,
       add,
       addCircle,
       arrowBack,
@@ -98,6 +110,7 @@ export class AppComponent {
       checkmarkCircleOutline,
       chevronDown,
       chevronForward,
+      chevronBack,
       close,
       construct,
       createOutline,
@@ -120,7 +133,6 @@ export class AppComponent {
       leaf,
       lockClosed,
       logoFacebook,
-      logOutOutline,
       logoWhatsapp,
       mail,
       mailOutline,

@@ -1,0 +1,230 @@
+<app-header />
+
+<ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <div class="tw-px-6">
+    <app-back-header title="Update Patient"></app-back-header>
+    <!-- <h1
+      class="fvs-125 tw-m-0 tw-mb-6 tw-mt-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
+    >
+      Update Patient
+    </h1> -->
+
+    <form
+      class="tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
+      [formGroup]="addPatientForm"
+      (ngSubmit)="submit()"
+    >
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="firstName"
+          name="firstName"
+          formControlName="firstName"
+          type="text"
+          fill="solid"
+          placeholder="First Name (Ex: John)"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="addPatientForm.controls.firstName"
+          [customErrorMessages]="{
+            required: 'First name is required.',
+            pattern: 'Only letters, numbers, and dashes are allowed.',
+            maxlength: 'Maximum 50 characters allowed.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="lastName"
+          name="lastName"
+          formControlName="lastName"
+          type="text"
+          fill="solid"
+          placeholder="Last Name (Ex: Doe)"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="addPatientForm.controls.lastName"
+          [customErrorMessages]="{
+            required: 'Last name is required.',
+            pattern: 'Only letters, numbers, and dashes are allowed.',
+            maxlength: 'Maximum 50 characters allowed.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="age"
+          name="age"
+          formControlName="age"
+          type="number"
+          fill="solid"
+          placeholder="Age (Ex: 43)"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="addPatientForm.controls.age"
+          [customErrorMessages]="{
+            required: 'Age is required.',
+            pattern: 'Only numbers are allowed.',
+            maxlength: 'Maximum 3 characters allowed.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="address"
+          name="address"
+          formControlName="address"
+          type="text"
+          fill="solid"
+          placeholder="Address (Ex: 123 Main St. Karachi)"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-mt-5 tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="phone"
+          name="phone"
+          formControlName="phone"
+          type="text"
+          inputmode="numeric"
+          fill="solid"
+          placeholder="Phone (Ex: 03123456789)"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="addPatientForm.controls.phone"
+          [customErrorMessages]="{
+            required: 'Phone is required.',
+            pattern: 'Only numbers are allowed.',
+            maxlength: 'Maximum 15 characters allowed.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="email"
+          name="email"
+          formControlName="email"
+          type="email"
+          fill="solid"
+          placeholder="Email (Ex: urapptech@gmail.com)"
+        >
+        </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="addPatientForm.controls.email"
+          [customErrorMessages]="{
+            required: 'Email is required.',
+            pattern: 'Invalid email format.',
+            maxlength: 'Maximum 50 characters allowed.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-select
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow [&>.select-wrapper-inner]:tw-w-full"
+          id="gender"
+          name="gender"
+          formControlName="gender"
+          interface="popover"
+          fill="solid"
+          placeholder="Select Gender"
+        >
+          <ion-select-option value="male">Male</ion-select-option>
+          <ion-select-option value="female">Female</ion-select-option>
+        </ion-select>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="addPatientForm.controls.gender"
+          [customErrorMessages]="{
+            required: 'Gender is required.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="occupation"
+          name="occupation"
+          formControlName="occupation"
+          type="text"
+          fill="solid"
+          placeholder="Occupation (Ex: Engineer)"
+        >
+        </ion-input>
+      </div>
+
+      <div class="tw-mt-5 tw-w-full">
+        <ion-textarea
+          class="tw-min-h-24 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="desc"
+          name="desc"
+          formControlName="desc"
+          fill="solid"
+          placeholder="Write Description"
+          autoGrow="true"
+        >
+        </ion-textarea>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="addPatientForm.controls.desc"
+          [customErrorMessages]="{
+            required: 'Description is required.',
+            maxlength: 'Maximum 250 characters allowed.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
+        <label class="tw-mb-1 tw-block tw-font-medium">Upload Avatar</label>
+        <input
+          class="tw-block tw-w-full tw-text-sm"
+          type="file"
+          accept="image/*"
+          (change)="onAvatarChange($event)"
+        />
+      </div>
+
+      <div
+        class="tw-mt-2 tw-flex tw-items-center tw-justify-center"
+        *ngIf="!!avatarPrevieweUrl"
+      >
+        <img
+          class="tw-h-24 tw-w-24 tw-rounded tw-object-contain"
+          alt="Avatar Preview"
+          [src]="avatarPrevieweUrl"
+        />
+      </div>
+
+      <ion-button
+        class="tw-mt-8 tw-w-fill-available tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-pb-5 tw-ion-pt-6"
+        type="submit"
+      >
+        Update
+      </ion-button>
+    </form>
+  </div>
+
+  <div class="tw-py-14"></div>
+
+  <app-tabs />
+</ion-content>
