@@ -11,7 +11,7 @@ export class CameraService {
   async takePhoto(): Promise<{ file: File; dataUrl: string } | null> {
     try {
       const image: any = await Camera.getPhoto({
-        quality: 90,
+        quality: 40,
         allowEditing: false,
         resultType: CameraResultType.DataUrl,
         source: CameraSource.Camera,

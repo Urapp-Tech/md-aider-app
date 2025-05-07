@@ -22,6 +22,7 @@ import { IonicSharedModule } from 'src/modules/ionic-shared.module';
 import { SharedModule } from 'src/modules/shared.module';
 import { NavController } from '@ionic/angular/standalone';
 import { BackHeaderComponent } from 'src/app/components/back-title-header/back-title-header.component';
+import { CameraService } from 'src/app/services/camera.service';
 
 @Component({
   selector: 'app-patient-visit-add',
@@ -45,7 +46,8 @@ export class PatientVisitAddPage implements OnInit {
     private readonly toastService: ToastService,
     private readonly loadingService: LoadingService,
     private readonly patientService: PatientService,
-    private readonly navController: NavController
+    private readonly navController: NavController,
+    private cameraService: CameraService
   ) {}
 
   @ViewChild('imageInput', { static: false })
@@ -254,6 +256,24 @@ export class PatientVisitAddPage implements OnInit {
   removeScanMedia(index: number) {
     this.scanMedia.removeAt(index);
   }
+
+  // scan camera capture
+  async captureFromCamera() {
+    if (this.scanMedia.length >= 3) {
+      return this.toastService.show(
+        'limit of 3 photos exceeded',
+        2000,
+        'Error',
+        'top'
+      );
+    }
+    const result = await this.cameraService.takePhoto();
+    if (result) {
+      const { file, dataUrl } = result;
+      this.scanMedia.push(this.createFileUpload(file, dataUrl));
+    }
+  }
+
   // -- //
 
   async durationStartChanged(

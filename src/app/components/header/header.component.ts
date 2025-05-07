@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { MenuController } from '@ionic/angular/standalone';
 import { CapacitorStorageService } from 'src/app/services/capacitor-storage.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,7 +17,8 @@ import { IonicSharedModule } from 'src/modules/ionic-shared.module';
 export class HeaderComponent {
   constructor(
     private readonly menuController: MenuController,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly navController: NavController
   ) {
     this.userData = this.userService.userData;
   }
@@ -33,6 +35,10 @@ export class HeaderComponent {
 
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
+  }
+
+  viewProfile() {
+    return this.navController.navigateRoot(['/doctor-profile']);
   }
 
   logout() {

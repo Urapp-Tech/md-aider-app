@@ -2,29 +2,37 @@
 
 <ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
   <div class="tw-px-6">
-    <div class="tw-mb-6 tw-mt-4 tw-flex tw-items-center">
+    <div class="tw-mb-6 tw-mt-4 tw-flex tw-items-center tw-justify-between">
       <h1
         class="fvs-125 tw-m-0 tw-mt-2 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
       >
         Doctor Profile
       </h1>
+      <ion-button
+        class="tw-z-10 tw-block tw-ion-text-app-primary hover:tw-bg-transparent"
+        type="button"
+        fill="none"
+        (click)="navigateToDocProfileEdit()"
+      >
+        <ion-icon
+          class="tw-mr-2"
+          src="assets/icons/icon-pencil.svg"
+          slot="icon-only"
+        />
+        Edit
+      </ion-button>
     </div>
 
     <div
-      class="tw-relative tw-isolate tw-mb-2 tw-aspect-[30/16] tw-w-fill-available tw-overflow-hidden tw-rounded-2xl tw-bg-white"
+      class="tw-isolate tw-mb-4 tw-aspect-square tw-w-fill-available tw-overflow-hidden tw-rounded-2xl tw-bg-white"
     >
       <img
         class="tw-h-full tw-w-full tw-object-contain"
-        src="assets/images/placeholder-profile-picture.png"
         alt=""
+        [src]="
+          userData?.avatar || 'assets/images/placeholder-profile-picture.png'
+        "
       />
-      <ion-button
-        class="tw-absolute tw-bottom-2 tw-right-2 tw-z-10 tw-ion-border-color-app-primary tw-ion-text-app-primary"
-        type="button"
-        fill="outline"
-      >
-        <ion-icon src="assets/icons/icon-pencil.svg" slot="icon-only" />
-      </ion-button>
     </div>
 
     <div class="tw-rounded-2xl tw-bg-white tw-px-4 tw-pb-4 tw-pt-2">
@@ -44,7 +52,7 @@
           <div
             class="tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
           >
-            James Cameron
+            {{ userData.firstName }} {{ userData.lastName }}
           </div>
         </div>
 
@@ -57,7 +65,7 @@
           <div
             class="tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
           >
-            Dermatologist
+            {{ userData.expertise }}
           </div>
         </div>
 
@@ -70,7 +78,7 @@
           <div
             class="tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
           >
-            57
+            {{ userData.age || 'Not updated' }}
           </div>
         </div>
 
@@ -83,9 +91,7 @@
           <div
             class="tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
           >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s,
+            {{ userData.bio || 'Not updated' }}
           </div>
         </div>
       </div>
@@ -105,7 +111,7 @@
         <div
           class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
         >
-          Medical Oncology & Hematology
+          {{ userData.boardCertification || 'Not updated' }}
         </div>
 
         <div
@@ -116,7 +122,7 @@
         <div
           class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
         >
-          Maryland Medical College
+          {{ userData.college || 'Not updated' }}
         </div>
 
         <div
@@ -127,7 +133,7 @@
         <div
           class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
         >
-          University of Pennsylvania
+          {{ userData.university || 'Not updated' }}
         </div>
 
         <div
@@ -138,91 +144,73 @@
         <div
           class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
         >
-          Columbia University Medical Center, Medical Oncology & Hematology
+          {{ userData.fellowship || 'Not updated' }}
         </div>
       </section>
 
-      <section id="experience">
-        <h2
-          class="fvs-125 tw-mx-0 tw-my-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
-        >
-          Experience
-        </h2>
+      <ng-container *ngIf="userData?.experience?.length; else noExperience">
+        <section id="experience">
+          <h2
+            class="fvs-125 tw-mx-0 tw-my-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
+          >
+            Experience
+          </h2>
 
-        <div
-          class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-        >
-          Hospital 1
-        </div>
-        <div
-          class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-        >
-          Medical Oncology & Hematology
-        </div>
+          <ng-container
+            *ngFor="let plist of userData.experience; let i = index"
+          >
+            <div
+              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+            >
+              Hospital {{ i + 1 }}
+            </div>
+            <div
+              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+            >
+              {{ plist }}
+            </div>
+          </ng-container>
+        </section>
+      </ng-container>
 
-        <div
-          class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+      <ng-template #noExperience>
+        <p
+          class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
         >
-          Hospital 2
-        </div>
-        <div
-          class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-        >
-          Maryland Medical College
-        </div>
+          Experience not updated
+        </p>
+      </ng-template>
 
-        <div
-          class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-        >
-          Hospital 3
-        </div>
-        <div
-          class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-        >
-          University of Pennsylvania
-        </div>
-      </section>
+      <ng-container *ngIf="userData?.skill?.length; else noExperience">
+        <section id="specialties">
+          <h2
+            class="fvs-125 tw-mx-0 tw-my-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
+          >
+            Specialties
+          </h2>
 
-      <section id="specialties">
-        <h2
-          class="fvs-125 tw-mx-0 tw-my-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
-        >
-          Specialties
-        </h2>
+          <ng-container *ngFor="let plist of userData.skill; let i = index">
+            <div
+              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+            >
+              Skill {{ i + 1 }}
+            </div>
+            <div
+              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+            >
+              {{ plist }}
+            </div>
+          </ng-container>
+        </section>
+      </ng-container>
 
-        <div
-          class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+      <ng-template #noExperience>
+        <p
+          class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
         >
-          Skill 1
-        </div>
-        <div
-          class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-        >
-          Medical Oncology & Hematology
-        </div>
-
-        <div
-          class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-        >
-          Skill 2
-        </div>
-        <div
-          class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-        >
-          Maryland Medical College
-        </div>
-
-        <div
-          class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-        >
-          Skill 3
-        </div>
-        <div
-          class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-        >
-          University of Pennsylvania
-        </div>
-      </section>
+          Experience not updated
+        </p>
+      </ng-template>
 
       <section id="available-slots">
         <h2
@@ -231,37 +219,32 @@
           Available Slots
         </h2>
 
-        <div class="tw-flex tw-flex-wrap tw-gap-x-3 tw-gap-y-2">
-          <div>
-            <div
-              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-            >
-              Monday
-            </div>
-            <div
-              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-            >
-              <span>{{ '2025-03-12T04:30:00.000Z' | date: 'hh:mm a' }}</span>
-              till
-              <span>{{ '2025-03-12T12:30:00.000Z' | date: 'hh:mm a' }}</span>
+        <ng-container *ngIf="userData?.addDateTime?.length; else noSlots">
+          <div class="tw-flex tw-flex-wrap tw-gap-x-3 tw-gap-y-2">
+            <div *ngFor="let slot of userData.addDateTime">
+              <div
+                class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+              >
+                {{ slot.day }}
+              </div>
+              <div
+                class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+              >
+                <span>{{ slot.openTime | date: 'hh:mm a' }}</span>
+                till
+                <span>{{ slot.closeTime | date: 'hh:mm a' }}</span>
+              </div>
             </div>
           </div>
+        </ng-container>
 
-          <div>
-            <div
-              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-            >
-              Tuesday
-            </div>
-            <div
-              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-            >
-              <span>{{ '2025-03-12T04:30:00.000Z' | date: 'hh:mm a' }}</span>
-              till
-              <span>{{ '2025-03-12T12:30:00.000Z' | date: 'hh:mm a' }}</span>
-            </div>
-          </div>
-        </div>
+        <ng-template #noSlots>
+          <p
+            class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+          >
+            Dates and times not updated
+          </p>
+        </ng-template>
       </section>
 
       <section id="languages">
@@ -270,47 +253,30 @@
         >
           Language Spoken
         </h2>
-
-        <div class="tw-flex tw-flex-wrap tw-gap-x-3 tw-gap-y-2">
-          <div>
-            <div
-              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-            >
-              Language 1
-            </div>
-            <div
-              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-            >
-              English
-            </div>
-          </div>
-
-          <div>
-            <div
-              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-            >
-              Language 2
-            </div>
-            <div
-              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-            >
-              French
+        <ng-container *ngIf="userData?.languages?.length; else noLanguages">
+          <div class="tw-flex tw-flex-wrap tw-gap-x-3 tw-gap-y-2">
+            <div *ngFor="let lang of userData.languages; let i = index">
+              <div
+                class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+              >
+                Language {{ i + 1 }}
+              </div>
+              <div
+                class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+              >
+                {{ lang }}
+              </div>
             </div>
           </div>
+        </ng-container>
 
-          <div>
-            <div
-              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-            >
-              Language 3
-            </div>
-            <div
-              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-            >
-              Scottish
-            </div>
-          </div>
-        </div>
+        <ng-template #noLanguages>
+          <p
+            class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+          >
+            Language not updated
+          </p>
+        </ng-template>
       </section>
 
       <section id="contact">
@@ -351,7 +317,7 @@
             <div
               class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
             >
-              abc&#64;gmail.com
+              {{ userData.email || 'Not updated' }}
             </div>
           </div>
           <div>
@@ -363,7 +329,7 @@
             <div
               class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
             >
-              123 456 789
+              {{ userData.phone || 'Not updated' }}
             </div>
           </div>
         </div>
@@ -373,9 +339,16 @@
         >
           Address
         </div>
-        <div
-          class="tw-aspect-[85/46] tw-w-fill-available tw-rounded-2xl tw-bg-blue-400"
-        ></div>
+        <ng-container *ngIf="userData?.address; else noLocations">
+          <app-google-map [address]="userData.address"></app-google-map>
+        </ng-container>
+        <ng-template #noLocations>
+          <p
+            class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+          >
+            Address not updated
+          </p>
+        </ng-template>
       </section>
     </div>
   </div>

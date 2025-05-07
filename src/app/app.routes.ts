@@ -97,7 +97,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'doctor-profile-add/:doctorId',
+    path: 'doctor-profile-edit',
     loadComponent: () =>
       import('./pages/doctor-profile-add/doctor-profile-add.page').then(
         (c) => c.DoctorProfileAddPage

@@ -1,15 +1,19 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IonDatetime, IonPopover } from '@ionic/angular/standalone';
 import { endOfDay, formatISO, sub } from 'date-fns';
+import { BackHeaderComponent } from 'src/app/components/back-title-header/back-title-header.component';
+import { FieldErrorMessageComponent } from 'src/app/components/field-error-message/field-error-message.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { TabsComponent } from 'src/app/components/tabs/tabs.component';
 import { ToastService } from 'src/app/services/toast.service';
+import { UserService } from 'src/app/services/user.service';
 import { addCustomStylesToIonPickerInternal } from 'src/app/utilities/add-custom-styles-to-ion-picker-internal';
 import { getTimeAsDateTime } from 'src/app/utilities/date-helpers';
 import fileToDataUrl from 'src/app/utilities/file-to-data-url';
+import { PATTERN } from 'src/app/utilities/form-patterns';
 import { IonicSharedModule } from 'src/modules/ionic-shared.module';
 import { SharedModule } from 'src/modules/shared.module';
 
@@ -48,15 +52,30 @@ type Mode = 'ADD' | 'EDIT';
   templateUrl: 'doctor-profile-add.page.html',
   styleUrls: ['doctor-profile-add.page.scss'],
   standalone: true,
-  imports: [IonicSharedModule, SharedModule, HeaderComponent, TabsComponent],
+  imports: [
+    IonicSharedModule,
+    SharedModule,
+    HeaderComponent,
+    TabsComponent,
+    BackHeaderComponent,
+    FieldErrorMessageComponent,
+  ],
 })
 export class DoctorProfileAddPage {
   constructor(
     private readonly formBuilder: NonNullableFormBuilder,
     private readonly datePipe: DatePipe,
     private readonly toastService: ToastService,
-    private readonly activatedRoute: ActivatedRoute
-  ) {}
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly userService: UserService
+  ) {
+    this.userData = this.userService.userData;
+    console.log('userData ->', this.userData);
+
+    this.populateForm(this.userData);
+  }
+
+  userData: any;
 
   mode: Mode = 'ADD';
 
@@ -68,19 +87,57 @@ export class DoctorProfileAddPage {
   dateOfBirthMinimumDate = formatISO(endOfDay(sub(new Date(), { years: 118 })));
 
   doctorProfileForm = this.formBuilder.group({
-    image: [TEMP_IMAGE, []],
-    firstName: ['', []],
-    lastName: ['', []],
-    dateOfBirth: ['', []],
-    phone: ['', []],
-    email: ['', []],
+    avatar: [TEMP_IMAGE, []],
+    firstName: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(PATTERN.CHAR_NUM_DASH),
+        Validators.maxLength(50),
+      ],
+    ],
+    lastName: [
+      '',
+      [Validators.pattern(PATTERN.CHAR_NUM_DASH), Validators.maxLength(50)],
+    ],
+    // dateOfBirth: ['', []],
+    phone: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(PATTERN.ONLY_NUM),
+        (control: any) =>
+          control.value && control.value.toString().length > 15
+            ? { maxlength: true }
+            : null,
+      ],
+    ],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(PATTERN.EMAIL),
+        Validators.maxLength(50),
+      ],
+    ],
     address: ['', []],
-    gender: ['', []],
-    designation: ['', []],
-    expertise: ['', []],
-    boardCertification: ['', []],
-    college: ['', []],
-    university: ['', []],
+    age: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(PATTERN.ONLY_NUM),
+        (control: any) =>
+          control.value && control.value.toString().length > 3
+            ? { maxlength: true }
+            : null,
+      ],
+    ],
+    gender: ['', [Validators.required]],
+    designation: ['', [Validators.required]],
+    expertise: ['', [Validators.required]],
+    boardCertification: ['', [Validators.required]],
+    college: ['', [Validators.required]],
+    university: ['', [Validators.required]],
     fellowship: ['', []],
     tempExperience: ['', []],
     experience: [TEMP_STRING_ARRAY, []],
@@ -101,6 +158,16 @@ export class DoctorProfileAddPage {
       (item) => item.day
     );
     return DAYS.filter((day) => !schedule.includes(day));
+  }
+
+  populateForm(doctorData: any) {
+    this.doctorProfileForm.patchValue({
+      ...doctorData,
+    });
+
+    if (doctorData.avatar) {
+      this.selectedImage = doctorData.avatar;
+    }
   }
 
   ionViewWillEnter() {
@@ -224,8 +291,8 @@ export class DoctorProfileAddPage {
       });
       return;
     }
-    if (currentValues.length === 4) {
-      await this.toastService.show('Only 4 languages can be added.');
+    if (currentValues.length === 3) {
+      await this.toastService.show('Only 3 languages can be added.');
       return;
     }
     const newValues = [...currentValues, currentValue];
@@ -254,8 +321,8 @@ export class DoctorProfileAddPage {
       });
       return;
     }
-    if (currentValues.length === 4) {
-      await this.toastService.show('Only 4 social media links can be added.');
+    if (currentValues.length === 3) {
+      await this.toastService.show('Only 3 social media links can be added.');
       return;
     }
     const newValues = [...currentValues, currentValue];
@@ -282,7 +349,7 @@ export class DoctorProfileAddPage {
     }
     const file = files[0];
     this.doctorProfileForm.patchValue({
-      image: file,
+      avatar: file,
     });
 
     fileToDataUrl(file, (progressEvent) => {
@@ -303,5 +370,7 @@ export class DoctorProfileAddPage {
       this.doctorProfileForm.markAllAsTouched();
       return;
     }
+    const formValue = this.doctorProfileForm.getRawValue();
+    console.log('formValue', formValue);
   }
 }

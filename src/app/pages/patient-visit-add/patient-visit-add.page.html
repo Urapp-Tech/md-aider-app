@@ -10,36 +10,36 @@
     </h1> -->
 
     <section
-      class="tw-flex tw-flex-wrap tw-gap-y-2 tw-rounded-2xl tw-bg-white tw-px-3 tw-pb-3 tw-pt-2"
+      class="tw-flex tw-flex-wrap tw-gap-4 tw-gap-y-2 tw-rounded-2xl tw-bg-white tw-px-3 tw-pb-3 tw-pt-2"
       id="patient-info"
     >
       <div
-        class="tw-basis-1/3 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+        class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
       >
         MR# {{ patient.mrNo }}
       </div>
       <div
-        class="tw-basis-1/3 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
-      >
-        Age: {{ patient.age }}
-      </div>
-      <div
-        class="tw-basis-1/3 tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
-      >
-        {{ patient.address }}
-      </div>
-      <div
-        class="tw-basis-1/3 tw-self-end tw-font-anek-gurmukhi tw-text-base tw-font-semibold tw-capitalize tw-text-app-black"
+        class="tw-self-end tw-font-anek-gurmukhi tw-text-base tw-font-semibold tw-capitalize tw-text-app-black"
       >
         {{ patient.name }}
       </div>
       <div
-        class="tw-basis-1/3 tw-self-end tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-capitalize tw-text-app-gray"
+        class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-gray"
+      >
+        Age: {{ patient.age }}
+      </div>
+      <div
+        class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-capitalize tw-text-app-gray"
       >
         {{ patient.gender }}
       </div>
       <div
-        class="tw-basis-1/3 tw-self-end tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
+        class="tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-black"
+      >
+        {{ patient.address }}
+      </div>
+      <div
+        class="tw-self-end tw-font-anek-gurmukhi tw-text-sm tw-font-medium tw-text-app-primary"
       >
         <ion-icon class="tw-text-xs" src="assets/icons/icon-phone.svg" />
         <span class="tw-underline"> {{ patient.phone }} </span>
@@ -931,6 +931,7 @@
       <div class="tw-w-full">
         <ion-button
           class="tw-h-14 tw-w-full tw-ion-bg-app-primary tw-ion-rounded-xl"
+          (click)="captureFromCamera()"
         >
           <ion-icon name="camera-outline" slot="icon-only" />
           <span class="tw-mx-1">Camera Scan</span>
@@ -1032,7 +1033,7 @@
                 <span>{{ plist.chiefComplaint }}</span>
               </td>
               <td class="tw-truncate">{{ plist.medicalNote }}</td>
-              <td class="tw-text-center">
+              <!-- <td class="tw-text-center">
                 <ion-button
                   class="tw-text-app-black"
                   fill="clear"
@@ -1044,7 +1045,7 @@
                     slot="icon-only"
                   />
                 </ion-button>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>

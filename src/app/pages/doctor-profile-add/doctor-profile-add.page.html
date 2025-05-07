@@ -2,13 +2,14 @@
 
 <ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
   <div class="tw-px-6">
-    <div class="tw-mb-6 tw-mt-4 tw-flex tw-items-center">
+    <app-back-header title="Edit Doctor Profile"></app-back-header>
+    <!-- <div class="tw-mb-6 tw-mt-4 tw-flex tw-items-center">
       <h1
         class="fvs-125 tw-m-0 tw-mt-2 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
       >
         {{ mode | titlecase }} Doctor Profile
       </h1>
-    </div>
+    </div> -->
 
     <form
       class="tw-w-fill-available tw-rounded-t-3xl tw-bg-app-secondary"
@@ -17,8 +18,8 @@
     >
       <input
         #imageInput
-        id="image"
-        name="image"
+        id="avatar"
+        name="avatar"
         type="file"
         accept=".png, .jpg, .jpeg"
         hidden
@@ -26,7 +27,7 @@
       />
 
       <div class="tw-mb-2">
-        @if (!doctorProfileForm.controls.image.value) {
+        @if (!doctorProfileForm.controls.avatar.value) {
           <div
             class="tw-flex tw-items-center tw-justify-between tw-rounded-2xl tw-bg-white tw-px-4 tw-pb-6 tw-pt-7 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
             (click)="imageInput.click()"
@@ -39,6 +40,27 @@
           </div>
         } @else {
           <div
+            class="tw-relative tw-isolate tw-mb-4 tw-aspect-square tw-w-fill-available tw-overflow-hidden tw-rounded-2xl tw-bg-white"
+          >
+            <img
+              class="tw-h-full tw-w-full tw-object-contain"
+              alt=""
+              [src]="selectedImage"
+            />
+            <div
+              class="tw-absolute tw-bottom-0 tw-right-0 tw-z-20 tw-bg-white tw-p-1"
+            >
+              <ion-button
+                class="tw-z-10 tw-ion-text-app-primary"
+                type="button"
+                fill="none"
+                (click)="imageInput.click()"
+              >
+                <ion-icon src="assets/icons/icon-pencil.svg" slot="icon-only" />
+              </ion-button>
+            </div>
+          </div>
+          <!-- <div
             class="tw-relative tw-isolate tw-aspect-[30/16] tw-w-fill-available tw-overflow-hidden tw-rounded-2xl tw-bg-white"
           >
             <img
@@ -49,12 +71,12 @@
             <ion-button
               class="tw-absolute tw-bottom-2 tw-right-2 tw-z-10 tw-ion-border-color-app-primary tw-ion-text-app-primary"
               type="button"
-              fill="outline"
+              fill="none"
               (click)="imageInput.click()"
             >
               <ion-icon src="assets/icons/icon-pencil.svg" slot="icon-only" />
             </ion-button>
-          </div>
+          </div> -->
         }
       </div>
 
@@ -69,6 +91,15 @@
           placeholder="First Name"
         >
         </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.firstName"
+          [customErrorMessages]="{
+            required: 'First name is required.',
+            pattern: 'Only letters, numbers, and dashes are allowed.',
+            maxlength: 'Maximum 50 characters allowed.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -82,9 +113,17 @@
           placeholder="Last Name"
         >
         </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.lastName"
+          [customErrorMessages]="{
+            pattern: 'Only letters, numbers, and dashes are allowed.',
+            maxlength: 'Maximum 50 characters allowed.',
+          }"
+        />
       </div>
 
-      <div class="tw-w-full">
+      <!-- <div class="tw-w-full">
         <ion-input
           class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
           id="date-of-birth-picker-trigger"
@@ -136,7 +175,7 @@
             </ion-datetime>
           </ng-template>
         </ion-popover>
-      </div>
+      </div> -->
 
       <div class="tw-w-full">
         <ion-input
@@ -147,9 +186,18 @@
           type="text"
           inputmode="numeric"
           fill="solid"
-          placeholder="Phone"
+          placeholder="Phone (Ex: 03123456789)"
         >
         </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.phone"
+          [customErrorMessages]="{
+            required: 'Phone is required.',
+            pattern: 'Only numbers are allowed.',
+            maxlength: 'Maximum 15 characters allowed.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -163,6 +211,15 @@
           placeholder="Email"
         >
         </ion-input>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.email"
+          [customErrorMessages]="{
+            required: 'Email is required.',
+            pattern: 'Invalid email format.',
+            maxlength: 'Maximum 50 characters allowed.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -179,6 +236,27 @@
       </div>
 
       <div class="tw-w-full">
+        <ion-input
+          class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0"
+          id="age"
+          name="age"
+          formControlName="age"
+          type="number"
+          fill="solid"
+          placeholder="Age (Ex: 43)"
+        >
+        </ion-input>
+        <app-field-error-message
+          [control]="doctorProfileForm.controls.age"
+          [customErrorMessages]="{
+            required: 'Age is required.',
+            pattern: 'Only numbers are allowed.',
+            maxlength: 'Maximum 3 characters allowed.',
+          }"
+        />
+      </div>
+
+      <div class="tw-w-full">
         <ion-select
           class="tw-min-h-12 tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-p-0 ion-container:tw-flex-grow [&>.select-wrapper-inner]:tw-w-full"
           id="gender"
@@ -191,6 +269,13 @@
           <ion-select-option value="MALE"> Male </ion-select-option>
           <ion-select-option value="FEMALE"> Female </ion-select-option>
         </ion-select>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.gender"
+          [customErrorMessages]="{
+            required: 'Gender is required.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -203,35 +288,42 @@
           fill="solid"
           placeholder="Select Designation"
         >
-          <ion-select-option value="ONCOLOGIST"> Oncologist </ion-select-option>
-          <ion-select-option value="CARDIOLOGIST">
+          <ion-select-option value="Oncologist"> Oncologist </ion-select-option>
+          <ion-select-option value="Cardiologist">
             Cardiologist
           </ion-select-option>
-          <ion-select-option value="DERMATOLOGIST">
+          <ion-select-option value="Dermatologist">
             Dermatologist
           </ion-select-option>
-          <ion-select-option value="PEDIATRICIAN">
+          <ion-select-option value="Pediatrician">
             Pediatrician
           </ion-select-option>
-          <ion-select-option value="ORTHOPEDIC_SURGEON">
+          <ion-select-option value="Orthopedic_Surgeon">
             Orthopedic Surgeon
           </ion-select-option>
-          <ion-select-option value="NEUROLOGIST">
+          <ion-select-option value="Neurologist">
             Neurologist
           </ion-select-option>
-          <ion-select-option value="OPHTHALMOLOGIST">
+          <ion-select-option value="Ophthalmologist">
             Ophthalmologist
           </ion-select-option>
-          <ion-select-option value="PSYCHIATRIST">
+          <ion-select-option value="Psychiatrist">
             Psychiatrist
           </ion-select-option>
-          <ion-select-option value="RADIOLOGIST">
+          <ion-select-option value="Radiologist">
             Radiologist
           </ion-select-option>
-          <ion-select-option value="GENERAL_SURGEON">
+          <ion-select-option value="General_Surgeon">
             General Surgeon
           </ion-select-option>
         </ion-select>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.designation"
+          [customErrorMessages]="{
+            required: 'Designation is required.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -244,55 +336,62 @@
           fill="solid"
           placeholder="Select Expertise"
         >
-          <ion-select-option value="CARDIOLOGY"> Cardiology </ion-select-option>
-          <ion-select-option value="DERMATOLOGY">
+          <ion-select-option value="Cardiology"> Cardiology </ion-select-option>
+          <ion-select-option value="Dermatology">
             Dermatology
           </ion-select-option>
-          <ion-select-option value="ENDOCRINOLOGY">
+          <ion-select-option value="Endocrinology">
             Endocrinology
           </ion-select-option>
-          <ion-select-option value="GASTROENTEROLOGY">
+          <ion-select-option value="Gastroenterology">
             Gastroenterology
           </ion-select-option>
-          <ion-select-option value="NEUROLOGY"> Neurology </ion-select-option>
-          <ion-select-option value="ONCOLOGY"> Oncology </ion-select-option>
-          <ion-select-option value="ORTHOPEDICS">
+          <ion-select-option value="Neurology"> Neurology </ion-select-option>
+          <ion-select-option value="Oncology"> Oncology </ion-select-option>
+          <ion-select-option value="Orthopedics">
             Orthopedics
           </ion-select-option>
-          <ion-select-option value="PEDIATRICS"> Pediatrics </ion-select-option>
-          <ion-select-option value="PSYCHIATRY"> Psychiatry </ion-select-option>
-          <ion-select-option value="RADIOLOGY"> Radiology </ion-select-option>
-          <ion-select-option value="SURGERY"> Surgery </ion-select-option>
-          <ion-select-option value="UROLOGY"> Urology </ion-select-option>
-          <ion-select-option value="GENERAL_PRACTITIONER">
+          <ion-select-option value="Pediatrics"> Pediatrics </ion-select-option>
+          <ion-select-option value="Psychiatry"> Psychiatry </ion-select-option>
+          <ion-select-option value="Radiology"> Radiology </ion-select-option>
+          <ion-select-option value="Surgery"> Surgery </ion-select-option>
+          <ion-select-option value="Urology"> Urology </ion-select-option>
+          <ion-select-option value="General_Practitioner">
             General Practitioner
           </ion-select-option>
-          <ion-select-option value="FAMILY_MEDICINE">
+          <ion-select-option value="Family_Medicine">
             Family Medicine
           </ion-select-option>
-          <ion-select-option value="OBSTETRICS_AND_GYNECOLOGY">
+          <ion-select-option value="Obstetrics_Gynecology">
             Obstetrics & Gynecology
           </ion-select-option>
-          <ion-select-option value="OPHTHALMOLOGY">
+          <ion-select-option value="Ophthalmology">
             Ophthalmology
           </ion-select-option>
-          <ion-select-option value="RHEUMATOLOGY">
+          <ion-select-option value="Rheumatology">
             Rheumatology
           </ion-select-option>
-          <ion-select-option value="INFECTIOUS_DISEASE">
+          <ion-select-option value="Infectious_Disease">
             Infectious Disease
           </ion-select-option>
-          <ion-select-option value="EMERGENCY_MEDICINE">
+          <ion-select-option value="Emergency_Medicine">
             Emergency Medicine
           </ion-select-option>
-          <ion-select-option value="PHYSICAL_MEDICINE_AND_REHABILITATION">
+          <ion-select-option value="Physical_Medicine_Rehabilitation">
             Physical Medicine & Rehabilitation
           </ion-select-option>
-          <ion-select-option value="PLASTIC_SURGERY">
+          <ion-select-option value="Plastic_Surgery">
             Plastic Surgery
           </ion-select-option>
-          <ion-select-option value="DENTISTRY"> Dentistry </ion-select-option>
+          <ion-select-option value="Dentistry"> Dentistry </ion-select-option>
         </ion-select>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.expertise"
+          [customErrorMessages]="{
+            required: 'Expertise is required.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -309,6 +408,13 @@
           <ion-select-option value="MD_UTC"> MD UTC </ion-select-option>
           <ion-select-option value="MD_PPT"> MD PPT </ion-select-option>
         </ion-select>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.boardCertification"
+          [customErrorMessages]="{
+            required: 'Board Certification is required.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -325,6 +431,13 @@
           <ion-select-option value="COL_MD_UTC"> COL MD UTC </ion-select-option>
           <ion-select-option value="COL_MD_PPT"> COL MD PPT </ion-select-option>
         </ion-select>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.college"
+          [customErrorMessages]="{
+            required: 'College is required.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -341,6 +454,13 @@
           <ion-select-option value="UN_MD_UTC"> UN MD UTC </ion-select-option>
           <ion-select-option value="UN_MD_PPT"> UN MD PPT </ion-select-option>
         </ion-select>
+        <app-field-error-message
+          styleClass="tw-mt-1 tw-h-4 tw-font-anek-gurmukhi tw-text-xs tw-font-normal tw-text-red-500"
+          [control]="doctorProfileForm.controls.university"
+          [customErrorMessages]="{
+            required: 'University is required.',
+          }"
+        />
       </div>
 
       <div class="tw-w-full">
@@ -353,8 +473,8 @@
           fill="solid"
           placeholder="Select Fellowship"
         >
-          <ion-select-option value="SAM"> Sam </ion-select-option>
-          <ion-select-option value="FRODO"> Frodo </ion-select-option>
+          <ion-select-option value="Sam"> Sam </ion-select-option>
+          <ion-select-option value="Frodo"> Frodo </ion-select-option>
         </ion-select>
       </div>
 
@@ -455,7 +575,7 @@
           formControlName="tempLanguage"
           type="text"
           fill="solid"
-          placeholder="Language (only 4)"
+          placeholder="Language (only 3)"
         >
           <ion-button
             class="tw-text-app-black/30"
@@ -501,7 +621,7 @@
           formControlName="tempSocialMedia"
           type="text"
           fill="solid"
-          placeholder="Social Media (only 4)"
+          placeholder="Social Media (only 3)"
         >
           <ion-button
             class="tw-text-app-black/30"
