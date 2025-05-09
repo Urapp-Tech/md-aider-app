@@ -8,11 +8,11 @@
       >
         Doctor Profile
       </h1>
+      <!-- (click)="navigateToDocProfileEdit()" -->
       <ion-button
         class="tw-z-10 tw-block tw-ion-text-app-primary hover:tw-bg-transparent"
         type="button"
         fill="none"
-        (click)="navigateToDocProfileEdit()"
       >
         <ion-icon
           class="tw-mr-2"
@@ -148,7 +148,7 @@
         </div>
       </section>
 
-      <ng-container *ngIf="userData?.experience?.length; else noExperience">
+      <div>
         <section id="experience">
           <h2
             class="fvs-125 tw-mx-0 tw-my-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
@@ -156,22 +156,24 @@
             Experience
           </h2>
 
-          <ng-container
-            *ngFor="let plist of userData.experience; let i = index"
-          >
-            <div
-              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+          <ng-container *ngIf="userData?.experience?.length; else noExperience">
+            <ng-container
+              *ngFor="let plist of userData.experience; let i = index"
             >
-              Hospital {{ i + 1 }}
-            </div>
-            <div
-              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-            >
-              {{ plist }}
-            </div>
+              <div
+                class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+              >
+                Hospital {{ i + 1 }}
+              </div>
+              <div
+                class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+              >
+                {{ plist }}
+              </div>
+            </ng-container>
           </ng-container>
         </section>
-      </ng-container>
+      </div>
 
       <ng-template #noExperience>
         <p
@@ -180,8 +182,7 @@
           Experience not updated
         </p>
       </ng-template>
-
-      <ng-container *ngIf="userData?.skill?.length; else noExperience">
+      <div>
         <section id="specialties">
           <h2
             class="fvs-125 tw-mx-0 tw-my-4 tw-grow tw-pt-0 tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-black"
@@ -189,26 +190,28 @@
             Specialties
           </h2>
 
-          <ng-container *ngFor="let plist of userData.skill; let i = index">
-            <div
-              class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
-            >
-              Skill {{ i + 1 }}
-            </div>
-            <div
-              class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
-            >
-              {{ plist }}
-            </div>
+          <ng-container *ngIf="userData?.skill?.length; else noSkill">
+            <ng-container *ngFor="let plist of userData.skill; let i = index">
+              <div
+                class="tw-font-anek-gurmukhi tw-text-xs tw-font-medium tw-text-neutral-400"
+              >
+                Skill {{ i + 1 }}
+              </div>
+              <div
+                class="tw-mb-3 tw-font-anek-gurmukhi tw-text-sm tw-font-normal tw-text-app-black"
+              >
+                {{ plist }}
+              </div>
+            </ng-container>
           </ng-container>
         </section>
-      </ng-container>
+      </div>
 
-      <ng-template #noExperience>
+      <ng-template #noSkill>
         <p
           class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
         >
-          Experience not updated
+          Skills not updated
         </p>
       </ng-template>
 

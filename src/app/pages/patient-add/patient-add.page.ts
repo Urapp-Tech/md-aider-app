@@ -148,7 +148,8 @@ export class PatientAddPage {
         console.log('response', response);
         await this.loadingService.hide();
         await this.toastService.show(response.message, 2000, 'Success', 'top');
-        this.navController.back();
+        // this.navController.back();
+        return this.navController.navigateRoot(['/patients-log']);
       },
       error: async (err) => {
         await this.loadingService.hide();

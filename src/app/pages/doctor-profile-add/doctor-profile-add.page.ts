@@ -162,10 +162,12 @@ export class DoctorProfileAddPage {
   });
 
   get remainingScheduleDay() {
-    const addDateTime = this.doctorProfileForm.controls.addDateTime.value.map(
-      (item) => item.day
-    );
-    return DAYS.filter((day) => !addDateTime.includes(day));
+    const addDateTime =
+      this.doctorProfileForm.controls.addDateTime?.value || [];
+    const selectedDays = Array.isArray(addDateTime)
+      ? addDateTime.map((item) => item.day)
+      : [];
+    return DAYS.filter((day) => !selectedDays.includes(day));
   }
 
   populateForm(doctorData: any) {

@@ -71,7 +71,7 @@ export class PatientProfilePage implements OnInit {
       });
   }
   navigateToPatientVisitCreate(patient: any) {
-    console.log('patient', patient);
+    // console.log('patient', patient);
 
     return this.navController.navigateRoot(['/patient-visit-add', patient.id], {
       state: { patient, patientList: this.list },
