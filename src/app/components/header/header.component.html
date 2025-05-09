@@ -46,6 +46,19 @@
         </button> -->
         <button
           class="tw-flex tw-w-full tw-p-4 tw-text-left tw-font-anek-gurmukhi hover:tw-bg-gray-100"
+          (click)="viewProfile()"
+        >
+          <ion-icon
+            class="tw-px-2 tw-text-xl"
+            name="person-circle-outline"
+            slot="icon-only"
+          />
+          <span class="tw-mt-1 tw-block tw-w-full tw-font-anek-gurmukhi"
+            >Profile</span
+          >
+        </button>
+        <button
+          class="tw-flex tw-w-full tw-p-4 tw-text-left tw-font-anek-gurmukhi hover:tw-bg-gray-100"
           (click)="logout()"
         >
           <ion-icon
@@ -55,19 +68,6 @@
           />
           <span class="tw-mt-1 tw-block tw-w-full tw-font-anek-gurmukhi"
             >Logout</span
-          >
-        </button>
-        <button
-          class="tw-flex tw-w-full tw-p-4 tw-text-left tw-font-anek-gurmukhi hover:tw-bg-gray-100"
-          (click)="viewProfile()"
-        >
-          <ion-icon
-            class="tw-px-2 tw-text-xl"
-            name="log-out-outline"
-            slot="icon-only"
-          />
-          <span class="tw-mt-1 tw-block tw-w-full tw-font-anek-gurmukhi"
-            >Profile</span
           >
         </button>
       </div>

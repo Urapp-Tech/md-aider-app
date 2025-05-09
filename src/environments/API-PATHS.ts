@@ -75,6 +75,15 @@ export const API_PATHS = {
     return url.toString();
   },
 
+  // update doc profile
+  updateDoctor(dId: string) {
+    const url = new URL(
+      `/api/v1/super-admin/back-office-user/update/${dId}`,
+      environment.baseURL
+    );
+    return url.toString();
+  },
+
   deleteCabin(cabinId: string) {
     const url = new URL(
       `/api/v1/admin/cabin/delete/${cabinId}`,

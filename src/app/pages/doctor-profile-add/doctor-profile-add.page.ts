@@ -2,12 +2,16 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { IonDatetime, IonPopover } from '@ionic/angular/standalone';
 import { endOfDay, formatISO, sub } from 'date-fns';
 import { BackHeaderComponent } from 'src/app/components/back-title-header/back-title-header.component';
 import { FieldErrorMessageComponent } from 'src/app/components/field-error-message/field-error-message.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { TabsComponent } from 'src/app/components/tabs/tabs.component';
+import { CapacitorStorageService } from 'src/app/services/capacitor-storage.service';
+import { DoctorService } from 'src/app/services/doctor.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { UserService } from 'src/app/services/user.service';
 import { addCustomStylesToIonPickerInternal } from 'src/app/utilities/add-custom-styles-to-ion-picker-internal';
@@ -19,29 +23,29 @@ import { SharedModule } from 'src/modules/shared.module';
 
 const TEMP_IMAGE: File | null = null;
 const DAYS_INT = {
-  SUNDAY: 0,
-  MONDAY: 1,
-  TUESDAY: 2,
-  WEDNESDAY: 3,
-  THURSDAY: 4,
-  FRIDAY: 5,
-  SATURDAY: 6,
+  Sunday: 0,
+  Monday: 1,
+  Tuesday: 2,
+  Wednesday: 3,
+  Thursday: 4,
+  Friday: 5,
+  Saturday: 6,
 } as const;
 const DAYS = [
-  'SUNDAY',
-  'MONDAY',
-  'TUESDAY',
-  'WEDNESDAY',
-  'THURSDAY',
-  'FRIDAY',
-  'SATURDAY',
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
 ] as const;
 const TEMP_STRING_ARRAY: Array<string> = [];
 type Day = (typeof DAYS)[number];
 type Schedule = {
   day: Day;
-  startTime: string;
-  endTime: string;
+  openTime: string;
+  closeTime: string;
 };
 const TEMP_SCHEDULE_ARRAY: Array<Schedule> = [];
 
@@ -66,8 +70,11 @@ export class DoctorProfileAddPage {
     private readonly formBuilder: NonNullableFormBuilder,
     private readonly datePipe: DatePipe,
     private readonly toastService: ToastService,
+    private readonly doctorService: DoctorService,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly loadingService: LoadingService,
+    private readonly navController: NavController
   ) {
     this.userData = this.userService.userData;
     console.log('userData ->', this.userData);
@@ -150,19 +157,24 @@ export class DoctorProfileAddPage {
     day: ['', []],
     startTime: ['09:00', []],
     endTime: ['17:00', []],
-    schedule: [TEMP_SCHEDULE_ARRAY, []],
+    addDateTime: [TEMP_SCHEDULE_ARRAY, []],
+    bio: ['', []],
   });
 
   get remainingScheduleDay() {
-    const schedule = this.doctorProfileForm.controls.schedule.value.map(
+    const addDateTime = this.doctorProfileForm.controls.addDateTime.value.map(
       (item) => item.day
     );
-    return DAYS.filter((day) => !schedule.includes(day));
+    return DAYS.filter((day) => !addDateTime.includes(day));
   }
 
   populateForm(doctorData: any) {
     this.doctorProfileForm.patchValue({
       ...doctorData,
+      languages: doctorData.languages || [],
+      skill: doctorData.skill || [],
+      experience: doctorData.experience || [],
+      socialMedia: doctorData.socialMedia || [],
     });
 
     if (doctorData.avatar) {
@@ -189,13 +201,14 @@ export class DoctorProfileAddPage {
     const endTime = formatISO(
       getTimeAsDateTime(this.doctorProfileForm.controls.endTime.value)
     );
-    const schedule = this.doctorProfileForm.controls.schedule.value;
+    const addDateTime = this.doctorProfileForm.controls.addDateTime.value;
 
     this.doctorProfileForm.patchValue({
       day: '',
-      schedule: [...schedule, { day, startTime, endTime }].sort(
-        (a, b) => DAYS_INT[a.day] - DAYS_INT[b.day]
-      ),
+      addDateTime: [
+        ...addDateTime,
+        { day, openTime: startTime, closeTime: endTime },
+      ].sort((a, b) => DAYS_INT[a.day] - DAYS_INT[b.day]),
     });
 
     if (this.remainingScheduleDay.length === 0) {
@@ -207,10 +220,10 @@ export class DoctorProfileAddPage {
     if (!this.doctorProfileForm.controls.day) {
       return;
     }
-    const schedule = this.doctorProfileForm.controls.schedule.value;
+    const addDateTime = this.doctorProfileForm.controls.addDateTime.value;
 
     this.doctorProfileForm.patchValue({
-      schedule: schedule.filter((item) => item.day !== day),
+      addDateTime: addDateTime.filter((item) => item.day !== day),
     });
 
     this.doctorProfileForm.controls.day.enable();
@@ -279,6 +292,8 @@ export class DoctorProfileAddPage {
 
   async addLanguage() {
     const currentValue = this.doctorProfileForm.controls.tempLanguage.value;
+    console.log('languages', currentValue);
+
     if (!currentValue) {
       return;
     }
@@ -371,6 +386,63 @@ export class DoctorProfileAddPage {
       return;
     }
     const formValue = this.doctorProfileForm.getRawValue();
-    console.log('formValue', formValue);
+    // console.log('formValue', formValue);
+    this.loadingService.show();
+
+    const formData = new FormData();
+
+    formData.append('firstName', formValue.firstName || '');
+    formData.append('lastName', formValue.lastName || '');
+    formData.append('gender', formValue.gender || '');
+    formData.append('phone', formValue.phone || '');
+    formData.append('email', formValue.email || '');
+    formData.append('age', formValue.age || '');
+    formData.append('address', formValue.address || '');
+    formData.append('designation', formValue.designation || '');
+    formData.append('expertise', formValue.expertise || '');
+    formData.append('boardCertification', formValue.boardCertification || '');
+    formData.append('college', formValue.college || '');
+    formData.append('university', formValue.university || '');
+    formData.append('fellowship', formValue.fellowship || '');
+    formData.append('bio', formValue.bio || '');
+
+    if (formValue.experience?.length) {
+      formData.append('experience', JSON.stringify(formValue.experience));
+    }
+
+    if (formValue.skill?.length) {
+      formData.append('skill', JSON.stringify(formValue.skill));
+    }
+
+    if (formValue.languages?.length) {
+      formData.append('languages', JSON.stringify(formValue.languages));
+    }
+
+    if (formValue.socialMedia?.length) {
+      formData.append('socialMedia', JSON.stringify(formValue.socialMedia));
+    }
+
+    // if (formValue.addDateTime?.length) {
+    formData.append('addDateTime', JSON.stringify(formValue.addDateTime || []));
+    // }
+
+    if (formValue.avatar && formValue.avatar instanceof File) {
+      formData.append('avatar', formValue.avatar);
+    }
+
+    this.doctorService.update(this.userData.id, formData).subscribe({
+      next: async (response) => {
+        console.log('response', response);
+        await this.loadingService.hide();
+        await this.toastService.show(response.message, 2000, 'Success', 'top');
+        this.userService.userData = response.data;
+        this.navController.back();
+      },
+      error: async (err) => {
+        console.error('failed:', err);
+        await this.loadingService.hide();
+        await this.toastService.show(err.error.message, 2000, 'Error', 'top');
+      },
+    });
   }
 }

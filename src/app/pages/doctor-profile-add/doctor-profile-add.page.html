@@ -694,7 +694,7 @@
                   minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
                 >
                   <div class="tw-mt-1 tw-capitalize" slot="title">
-                    Select Start Time
+                    Select Open Time
                   </div>
                 </ion-datetime>
               </ng-template>
@@ -718,7 +718,7 @@
                   minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
                 >
                   <div class="tw-mt-1 tw-capitalize" slot="title">
-                    Select End Time
+                    Select Close Time
                   </div>
                 </ion-datetime>
               </ng-template>
@@ -735,7 +735,7 @@
 
         <div class="tw-my-2 tw-flex tw-flex-col tw-gap-x-4 tw-gap-y-2">
           @for (
-            schedule of doctorProfileForm.controls.schedule.value;
+            schedule of doctorProfileForm.controls.addDateTime.value;
             track schedule.day
           ) {
             <div class="tw-rounded-2xl tw-bg-white tw-p-4">
@@ -743,9 +743,9 @@
                 <div class="tw-grow tw-font-anek-gurmukhi">
                   <div>{{ schedule.day | titlecase }}</div>
                   <div>
-                    <span>{{ schedule.startTime | date: 'hh:mm a' }}</span>
+                    <span>{{ schedule.openTime | date: 'hh:mm a' }}</span>
                     till
-                    <span>{{ schedule.endTime | date: 'hh:mm a' }}</span>
+                    <span>{{ schedule.closeTime | date: 'hh:mm a' }}</span>
                   </div>
                 </div>
                 <ion-button
@@ -759,8 +759,20 @@
           }
         </div>
       </div>
-
       <div class="tw-w-full">
+        <ion-textarea
+          class="tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-px-0"
+          id="bio"
+          name="bio"
+          formControlName="bio"
+          fill="solid"
+          placeholder="Type your Bio"
+          rows="4"
+          autoGrow="true"
+        >
+        </ion-textarea>
+      </div>
+      <!-- <div class="tw-w-full">
         <ion-textarea
           class="tw-font-anek-gurmukhi tw-text-xl tw-text-app-black tw-ion-bg-transparent tw-ion-px-0"
           fill="solid"
@@ -768,10 +780,10 @@
           rows="4"
         >
         </ion-textarea>
-      </div>
+      </div> -->
 
       <ion-button
-        class="tw-mt-4 tw-w-fill-available tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-pb-5 tw-ion-pt-6"
+        class="tw-my-4 tw-w-fill-available tw-font-anek-gurmukhi tw-text-xl tw-font-semibold tw-text-app-secondary tw-ion-bg-app-primary tw-ion-rounded-2xl tw-ion-pb-5 tw-ion-pt-6"
         type="submit"
       >
         Save

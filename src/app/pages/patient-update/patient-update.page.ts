@@ -162,7 +162,7 @@ export class PatientUpdatePage implements OnInit {
     const formValue = this.addPatientForm.getRawValue();
     const formData = new FormData();
 
-    console.log('update formValue', formValue);
+    // console.log('update formValue', formValue);
 
     formData.append('name', `${formValue.firstName} ${formValue.lastName}`);
     formData.append('age', formValue.age);

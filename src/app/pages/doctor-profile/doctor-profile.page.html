@@ -292,19 +292,28 @@
           >
             Social Media
           </div>
-
-          <ion-button class="tw-text-black" shape="round" fill="clear">
-            <ion-icon src="assets/icons/icon-facebook.svg" slot="icon-only" />
-          </ion-button>
-          <ion-button class="tw-text-black" shape="round" fill="clear">
-            <ion-icon src="assets/icons/icon-instagram.svg" slot="icon-only" />
-          </ion-button>
-          <ion-button class="tw-text-black" shape="round" fill="clear">
-            <ion-icon src="assets/icons/icon-linkedin.svg" slot="icon-only" />
-          </ion-button>
-          <ion-button class="tw-text-black" shape="round" fill="clear">
-            <ion-icon src="assets/icons/icon-whatsapp.svg" slot="icon-only" />
-          </ion-button>
+          <ng-container *ngIf="parsedSocialLinks?.length; else noSocialMedia">
+            <div class="tw-flex tw-flex-wrap tw-gap-x-1 tw-gap-y-2">
+              <div *ngFor="let link of parsedSocialLinks">
+                <ion-button
+                  class="tw-text-black"
+                  shape="round"
+                  fill="clear"
+                  target="_blank"
+                  [href]="link.url"
+                >
+                  <ion-icon slot="icon-only" [src]="link.icon"></ion-icon>
+                </ion-button>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noSocialMedia>
+            <p
+              class="tw-text-center tw-font-anek-gurmukhi tw-text-sm tw-text-app-gray"
+            >
+              Social Media links not updated
+            </p>
+          </ng-template>
         </div>
 
         <div class="tw-flex tw-flex-wrap tw-gap-x-3 tw-gap-y-2">

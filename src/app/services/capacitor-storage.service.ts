@@ -22,7 +22,12 @@ export class CapacitorStorageService {
   async getItem<T>(key: Key): Promise<T | null> {
     const newKey = addKeyPrefix(key);
     const { value } = await Preferences.get({ key: newKey });
-    return value ? JSON.parse(value) : null;
+    try {
+      return value && value !== 'undefined' ? JSON.parse(value) : null;
+    } catch (err) {
+      console.error('Failed to parse value for key:', key, value, err);
+      return null;
+    }
   }
 
   async removeItem(key: Key): Promise<void> {
