@@ -62,7 +62,7 @@ export class AuthSignInPage {
       },
       error: async (err) => {
         await this.loadingService.hide();
-        await this.toastService.show(err.message, 2000, 'Error', 'top');
+        await this.toastService.show(err.error.message, 2000, 'Error', 'top');
         console.error('Login failed:', err);
       },
     });

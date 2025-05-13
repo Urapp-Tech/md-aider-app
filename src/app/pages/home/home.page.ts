@@ -117,4 +117,22 @@ export class HomePage {
   navigateToScanDisease() {
     return this.navController.navigateRoot(['/scan-disease']);
   }
+
+  loadActivity(event?: any) {
+    this.activityService.getDashboardActivity().subscribe({
+      next: (data) => {
+        this.activityData = data.data;
+        if (event) event.target.complete();
+      },
+      error: async (err) => {
+        await this.toastService.show(err.error.message, 2000, 'Error', 'top');
+        if (event) event.target.complete();
+      },
+    });
+  }
+
+  // ✅ Called by ion-refresher
+  doRefresh(event: any) {
+    this.loadActivity(event);
+  }
 }

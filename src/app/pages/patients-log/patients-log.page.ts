@@ -28,16 +28,7 @@ export class PatientsLogPage {
     private toastService: ToastService,
     private readonly navController: NavController
   ) {
-    this.patientService
-      .getPatientList({ page: this.page, size: this.size, search: this.search })
-      .subscribe({
-        next: (data) => {
-          this.list = data.data.list;
-          this.total = data.data.total;
-        },
-        error: async (err) =>
-          await this.toastService.show(err.error.message, 2000, 'Error', 'top'),
-      });
+    this.loadPatients();
   }
 
   page: any = 0;
@@ -46,6 +37,36 @@ export class PatientsLogPage {
 
   list: any[] = [];
   total: any = 0;
+  canLoadMore = true;
+
+  async loadPatients(reset = false) {
+    if (reset) {
+      this.page = 0;
+      this.list = [];
+      this.canLoadMore = true;
+    }
+
+    this.patientService
+      .getPatientList({ page: this.page, size: this.size, search: this.search })
+      .subscribe({
+        next: (res) => {
+          const newList = res.data.list;
+          this.total = res.data.total;
+
+          this.list = [...this.list, ...newList];
+          this.canLoadMore = this.list.length < this.total;
+        },
+        error: async (err) =>
+          await this.toastService.show(err.error.message, 2000, 'Error', 'top'),
+      });
+  }
+
+  loadMore(event: any) {
+    this.page++;
+    this.loadPatients();
+    event.target.complete();
+  }
+
   formatDate(date: string): string {
     return format(new Date(date), 'dd MMM yyyy');
   }
@@ -66,5 +87,10 @@ export class PatientsLogPage {
     return this.navController.navigateRoot(['/patient-update', patient.id], {
       state: { patientData: patient },
     });
+  }
+
+  doRefresh(event: any) {
+    this.loadPatients(true);
+    event.target.complete();
   }
 }

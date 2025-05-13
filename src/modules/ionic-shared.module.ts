@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+// import { IonRefresherContent } from '@ionic/angular';
 import {
   IonAccordion,
   IonAccordionGroup,
@@ -19,6 +20,8 @@ import {
   IonMenuButton,
   IonModal,
   IonPopover,
+  IonRefresher,
+  IonRefresherContent,
   IonRadio,
   IonRadioGroup,
   IonRippleEffect,
@@ -34,6 +37,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
 
 const imports = [
@@ -56,6 +61,8 @@ const imports = [
   IonMenuButton,
   IonModal,
   IonPopover,
+  IonRefresher,
+  IonRefresherContent,
   IonRadio,
   IonRadioGroup,
   IonRippleEffect,
@@ -71,6 +78,8 @@ const imports = [
   IonGrid,
   IonRow,
   IonCol,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 ];
 
 @NgModule({

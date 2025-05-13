@@ -1,6 +1,9 @@
 <app-header />
 
 <ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="tw-px-6">
     <h1
       class="fvs-125 tw-mx-0 tw-mb-2 tw-pt-0 tw-font-anek-gurmukhi tw-text-4xl tw-font-semibold tw-capitalize tw-text-app-black"

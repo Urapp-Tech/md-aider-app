@@ -1,6 +1,9 @@
 <app-header />
 
 <ion-content class="tw-ion-bg-app-secondary" [scrollY]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="tw-px-6">
     <h1
       class="fvs-125 tw-mx-0 tw-mb-6 tw-pt-0 tw-font-anek-gurmukhi tw-text-2xl tw-font-semibold tw-text-app-black"
@@ -70,6 +73,17 @@
       </p>
     </ng-template>
   </div>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    [disabled]="!canLoadMore"
+    (ionInfinite)="loadMore($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="dots"
+      loadingText="Loading more patients..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
   <ion-button
     class="tw-fixed tw-bottom-[calc(1vw+1vh+6rem)] tw-right-[calc(1vw+1vh)] tw-ion-bg-app-primary tw-ion-rounded-2xl"
